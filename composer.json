@@ -10,8 +10,7 @@
             "Itb\\":"src/controllers",
 
             "Itb\\Controller\\":"src/controllers",
-            "Itb\\Model\\":"src/model",
-            "Itb\\StudentManager\\":"src/managers"
+            "Itb\\Model\\":"src/model"
         }
     },
     "scripts":{
