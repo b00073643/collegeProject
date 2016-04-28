@@ -1,0 +1,16 @@
+{% extends '_base.html.twig' %}
+
+{% block pageTitle %}List Page {% endblock %}
+{% block main %}
+    <h1>Welcome to the Karate Dojo Admin page {% if user is defined %}{{ user }}{% endif %}</h1>
+<ul>
+
+    <li> <a href = "/logout">Logout</a></li>
+    <li> <a href = "/fillGrades">fillGrades </a></li>
+
+
+
+    {#<li> <a href = "/percentAttendance">Percentage Attendance of Student 10</a></li>#}
+
+</ul>
+{% endblock %}

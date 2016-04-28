@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block pageTitle %}{% endblock %}</title>
+    <style>
+        @import 'css/style.css';
+        /*@import "css/basic.css";*/
+        @import "css/nav.css";
+        /*@import "css/footer.css";*/
+    </style>
+</head>
+
+<body>
+<nav>
+    <ul>
+        <li>
+            <a href="/" class="{% block indexLinkStyle %}{% endblock %}">Home</a>
+        </li>
+
+        <li>
+            <a href="/listPage" class="{% block aboutLinkStyle %}{% endblock %}">Lists</a>
+        </li>
+
+        <li>
+            <a href="/add" class="{% block listLinkStyle %}{% endblock %}">Add Students/Admin</a>
+        </li>
+
+        <li>
+            <a href="/attendancePage" class="{% block contactLinkStyle %}{% endblock %}">Attendance</a>
+        </li>
+
+        <li>
+            <a href="/?action=sitemap" class="{% block sitemapLinkStyle %}{% endblock %}">Site Map</a>
+        </li>
+    </ul>
+</nav>
+
+<hr>
+{% block main %}
+{% endblock %}
+
+</body>
+</html>

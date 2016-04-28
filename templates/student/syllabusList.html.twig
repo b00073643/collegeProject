@@ -1,0 +1,17 @@
+{% extends '_baseStudent.html.twig' %}
+
+{% block pageTitle %}Syllabus List Page {% endblock %}
+
+{% block main %}
+    {% for tech in techniques %}
+        {{ tech.name }}
+        {##}
+        {#<form action="/updateGradeForm" method="post">#}
+            {#<input type="hidden" value="" name="studentId">#}
+            {#<input type="submit" value="View Techniques in this grade">#}
+        {#</form>#}
+        <br>
+        <hr>
+        {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends '_base.html.twig' %}
+
+{% block pageTitle %}Add page {% endblock %}
+{% block main %}
+    <h1>Add Students or Admin {% if user is defined %}{{ user }}{% endif %}</h1>
+<ul>
+
+    <li> <a href = "/addUserForm">Add a new Administrator</a></li>
+    <li> <a href = "/addStudentForm">Add a new student</a></li>
+
+</ul>
+{% endblock %}
