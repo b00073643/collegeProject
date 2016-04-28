@@ -3,29 +3,25 @@
 {% block pageTitle %}Single Student Score Page {% endblock %}
 
 {% block main %}
-<h1>Student Scores</h1>
+<h1>Student Score</h1>
 
 {{ student.firstName }} {{ student.surname }}
+    <h1>sylabus for next grade</h1>
     <br>
-    {{ technique.name }} technique
-    <br>
-    Has now been updated to have a score of {{ grade.score }}
-    <hr>
-    his other scores are
-    <br>
-    <table>
-        <tr>
-    {% for t in techs %}
-       <th> {{ t.name }}</th>
-    {% endfor %}
-{##}</tr>
-        <tr>
-    {% for g in grades %}
-
-        <td> {{ g.score }}</td>
-
-    {% endfor %}
+    <table><tr>
+{% for t in techs %}
+        <th>{{ t.name }}</th>
+{% endfor %}
         </tr>
+
+        <tr>
+            {% for g in grades %}
+                <td>{{ g.score }}</td>
+            {% endfor %}
+        </tr>
+
     </table>
+    <br>
     <h1>{{ eligibility }}</h1>
+
 {% endblock %}

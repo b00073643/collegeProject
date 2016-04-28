@@ -48,10 +48,9 @@ $app->post('/updateGrade','Itb\Controller\GradeController::updateGrade');
 $app->get('/add','Itb\Controller\MainController::addPage');
 $app->get('/listPage','Itb\Controller\MainController::listPage');
 $app->get('/attendancePage','Itb\Controller\MainController::attendancePage');
-$app->get('/syllabus','Itb\Controller\TechniqueController::syllabus');
+$app->post('/syllabus','Itb\Controller\TechniqueController::syllabus');
 $app->get('/gradingInfo','Itb\Controller\GradeController::showStudentGrade');
-
-
+$app->get('/belts','Itb\Controller\TechniqueController::listBelts');
 
 
 $app->error(function (\Exception $e, $code) use ($app) {

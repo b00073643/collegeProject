@@ -1,8 +1,10 @@
 {% extends '_baseStudent.html.twig' %}
 
 {% block pageTitle %}Syllabus List Page {% endblock %}
-
 {% block main %}
+    <a href="/belts">back</a>
+<br>
+    <hr>
     {% for tech in techniques %}
         {{ tech.name }}
         {##}

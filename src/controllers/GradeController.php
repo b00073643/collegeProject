@@ -26,7 +26,7 @@ class GradeController
         $studentA = Student::getOneByUsername($_SESSION['user']);
 
         $studentId = $studentA->getId();
-        var_dump($studentA);
+//        var_dump($studentA);
         $belt = $studentA->getCurrentGrade();
         $studentsTechniques = Technique::searchByColumn('belt',$belt);
 

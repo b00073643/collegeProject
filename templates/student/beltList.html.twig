@@ -1,0 +1,26 @@
+{% extends '_baseStudent.html.twig' %}
+
+{% block pageTitle %}Syllabus List Page {% endblock %}
+
+{% block main %}
+    {% if studentBeltId is defined %}
+    {{ studentBeltId }}
+        {% endif %}
+    {% for belt in belts %}
+        {{ belt.name }}
+        {% if belt.id == studentBeltId %}
+            <br>
+            <img src="images/currentGrade.png">
+            <br>
+
+        {% endif %}
+
+        <form action="/syllabus" method="post">
+            <input type="hidden" value={{ belt.id }} name="beltId">
+            <input type="submit" value="View Techniques in this grade">
+        </form>
+        <br>
+        <hr>
+        {% endfor %}
+
+{% endblock %}
