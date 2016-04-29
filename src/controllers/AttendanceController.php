@@ -23,7 +23,6 @@ class AttendanceController
         $studentId = $request->get('id');
         $sessionId = $request->get('sessionId');
         $dateString = $request->get('dateString');
-        print $dateString;
         $atten = $request->get('atten');
         $class1 = $request->get('sessionId');
 
@@ -67,7 +66,6 @@ class AttendanceController
         $student = Student::getOneById(10);
 //        var_dump($student);
         $student->setTotalAttendedPercentage();
-        print '<br>get'.$student->getTotalAttendedPercentage();
        //$updateSuccess = Student::update($student);
 
         die();

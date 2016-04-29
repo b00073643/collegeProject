@@ -48,39 +48,18 @@ class AdminController
     return $app['twig']->render($templateName . '.html.twig',$argsArray);
 
     }
-    //////////////////////////////////////////////////////not used yet//////////////////////////////////////
-            public function timeSince()
-            {
-                $time = strtotime('2010-04-28 17:25:43');
-
-                echo 'event happened '.($time).' ago';
-
-                $time = time() - $time; // to get the time since that moment
-                $time = ($time<1)? 1 : $time;
-                $token = 2592000;
-
-                $numberOfUnits = floor($time / $token);
-                $months = $numberOfUnits .'Months since last grading';
-                echo '<br>' . $months;
-            }
-
-
 
     public function markAttendance(Request $request, Application $app)
     {
         $class = $request->get('classes');
-        print $class.'<br>';
         $month = $request->get('JoinMonth');
         $day = $request->get('JoinDay');
         $year = $request->get('JoinYear');
-//            $username = $_SESSION['user'];
-        print "the date is $day /$month/$year";
+
         $dateString = $day.'-'.$month.'-'.$year;
         $timestamp = strtotime("$day-$month-$year");
-        print '<br>'.$timestamp;
         $class1 = Session::getOneById($class);
-//        var_dump($class1) ;
-//        die()
+
         $attendances = Attendance::getAll();
 
         $students = Student::searchByColumn('attendsClass',$class);
@@ -145,7 +124,6 @@ class AdminController
     {
 
         $id = $request->get('id');
-        print $id;
         $deleteSuccess = Student::delete($id);
         if($deleteSuccess){
             $students = Student::getAll();

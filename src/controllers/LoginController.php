@@ -120,7 +120,6 @@ class LoginController
     {
         $username = $request->get('username');
         $password = $request->get('password');
-        print 'username is '.$username.' amd password is '.$password;
         // default is bad login
         $isLoggedIn = false;
 
@@ -142,8 +141,6 @@ class LoginController
 
             //     require_once __DIR__ . '/../templates/loginSuccess.php';
         } else {
-            print 'in heooooooooooooooreeeere';
-
             $argsArray = ['user' => $username];
             $templateName = 'loginFail';
             return $app['twig']->render($templateName . '.html.twig',$argsArray);
@@ -154,7 +151,6 @@ class LoginController
     {
         $username = $request->get('username');
         $password = $request->get('password');
-        print 'username is '.$username;
         // default is bad login
         $isLoggedIn = false;
 
@@ -193,8 +189,7 @@ class LoginController
     }
 
     public function isLoggedInFromSession()
-    {print'logggg';
-        die();
+    {
         $isAdminLoggedIn = false;
 
         // user is logged in if there is a 'user' entry in the SESSION superglobal

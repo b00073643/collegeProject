@@ -107,7 +107,6 @@ class Grade extends DatabaseTable
             {
                 $gradeId= $grade->getId();
                 return $gradeId;
-//                print $grade->getId().'is the grade id and '.$studentId.' is the students id';
             }
         }
 

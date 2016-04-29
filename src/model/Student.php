@@ -15,7 +15,7 @@ class Student extends DatabaseTable
     private $lastGrading;
     private $currentGrade;
     private $avgGrade;
-    private $seen;
+//    private $seen;
     private $attendsClass;
     private $totalAttendedPercentage;
 //    private $totalAttended;
@@ -34,9 +34,7 @@ class Student extends DatabaseTable
         $totalAbscent=0;
         foreach ($studentAttendance as $sa) {
             $totalPresent+=$sa->getPresent();
-            print $totalPresent;
             $totalAbscent+=$sa->getAbscent();
-            print $totalAbscent;
 
         }
 
@@ -45,7 +43,6 @@ class Student extends DatabaseTable
             $this->totalAttendedPercentage=0;
         }
         else {
-//            print '<br>'.$this->surname.'<br> total classes = '.$totalClasses.'<br>total present = '.$totalPresent.'<br>total abscent = '.$totalAbscent.'<hr>';
             $percent = (100 * $totalPresent) / $totalClasses;
             $this->totalAttendedPercentage = intval($percent);
         }
@@ -208,43 +205,43 @@ class Student extends DatabaseTable
     /**
      * @return int
      */
-    public function getSeen()
-    {
-        return $this->seen;
-    }
-
-    /**
-     * @param int $seen
-     */
-    public function setSeen($seen)
-    {
-        $this->seen = $seen;
-    }
-
-
+//    public function getSeen()
+//    {
+//        return $this->seen;
+//    }
+//
+//    /**
+//     * @param int $seen
+//     */
+//    public function setSeen($seen)
+//    {
+//        $this->seen = $seen;
+//    }
 
 
 
-    public static function update(Student $student)
-    {
-        $id=2;
-        $isOnDatabase = Student::getOneById($id);
-        $id = $student->getId();
-        $seen = $student->getSeen();
-        $totalAttendedPercentage = $student->getTotalAttendedPercentage();
-        echo"$id and $seen";
-        $db = new DatabaseManager();
-        $connection = $db->getDbh();
 
-        $sql = 'UPDATE students SET seen = :seen, totalAttendedPercentage= :totalAttendedPercentage WHERE id=:id';
-        $statement = $connection->prepare($sql);
-        $statement->bindParam(':seen', $seen, \PDO::PARAM_INT);
-        $statement->bindParam(':id', $id, \PDO::PARAM_INT);
 
-        $queryWasSuccessful = $statement->execute();
-
-        /*        return $queryWasSuccessful;*/
-    }
+//    public static function update(Student $student)
+//    {
+//        $id=2;
+//        $isOnDatabase = Student::getOneById($id);
+//        $id = $student->getId();
+//        $seen = $student->getSeen();
+//        $totalAttendedPercentage = $student->getTotalAttendedPercentage();
+//        echo"$id and $seen";
+//        $db = new DatabaseManager();
+//        $connection = $db->getDbh();
+//
+//        $sql = 'UPDATE students SET seen = :seen, totalAttendedPercentage= :totalAttendedPercentage WHERE id=:id';
+//        $statement = $connection->prepare($sql);
+//        $statement->bindParam(':seen', $seen, \PDO::PARAM_INT);
+//        $statement->bindParam(':id', $id, \PDO::PARAM_INT);
+//
+//        $queryWasSuccessful = $statement->execute();
+//
+//        /*        return $queryWasSuccessful;*/
+//    }
     public function setPassword($password)
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -263,9 +260,6 @@ class Student extends DatabaseTable
     public static function canFindMatchingUsernameAndPassword($username, $password)
     {
         $user = Student::getOneByUsername($username);
-//        print ' in student method';
-//        die();
-
         // if no record has this username, return FALSE
         if(null == $user){
 
@@ -291,8 +285,7 @@ class Student extends DatabaseTable
         $statement->setFetchMode(\PDO::FETCH_CLASS, __CLASS__);
 
         $statement->execute();
-//        print $firstName;
-//        die();
+
         if ($object = $statement->fetch()) {
             return $object;
         } else {

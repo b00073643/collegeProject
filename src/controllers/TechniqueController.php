@@ -22,8 +22,6 @@ class TechniqueController
         $beltId = $request->get('beltId');
         $techniques = Technique::searchByColumn('belt',$beltId);
 
-//                print $currentGrade.' sdsd';
-
         $argsArray = [
             'techniques' => $techniques
         ];
@@ -41,7 +39,6 @@ class TechniqueController
         $username = $_SESSION['user'];
         $student = Student::getOneByUsername($username);
         $currentGrade = $student->getCurrentGrade();
-        print $currentGrade;
 
         $belts = Belt::getAll();
         $argsArray = [

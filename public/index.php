@@ -34,7 +34,6 @@ $app->post('/addStudent','Itb\Controller\LoginController::addStudent');
 $app->get('/logout','Itb\Controller\LoginController::logoutAction');
 $app->get('/showSingleStudent','Itb\Controller\MainController::showSingleStudent');
 $app->post('/showSingleStudent','Itb\Controller\MainController::showSingleStudent');
-
 $app->get('/addTechniqueSeen/{id}','Itb\Controller\AdminController::addTechniqueSeen');
 $app->post('/addStudent','Itb\Controller\LoginController::addStudent');
 $app->post('/deleteStudent','Itb\Controller\AdminController::deleteStudent');

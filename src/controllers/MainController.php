@@ -18,14 +18,11 @@ class MainController
         if(isset($_SESSION['user']))
         {
             $argsArray=['user'=>$_SESSION['user']];
-            print'session user is set ';
         }
         if(ISSET($_SESSION['role']))
         {
-            print'<br>(1)session user is set to '.$_SESSION['role'].' outside of if';
 
             if($_SESSION['role']=='admin') {
-                print'<br>session user is set to '.$_SESSION['role'].' inside of if statement';
 
                 $templateName = 'admin/adminIndex';
                 return $app['twig']->render($templateName . '.html.twig', $argsArray);
@@ -33,7 +30,6 @@ class MainController
             }
 
             else if($_SESSION['role']=='user') {
-                print'<br>session user is set to user inside if statement';
                 $templateName = 'student/studentIndex';
                 return $app['twig']->render($templateName . '.html.twig', $argsArray);
 
@@ -41,8 +37,7 @@ class MainController
 
         }
         else{
-//            print'heeer';
-//            die();
+
             $templateName = 'index';
             return $app['twig']->render($templateName . '.html.twig', $argsArray);
         }
@@ -88,7 +83,18 @@ class MainController
             $students = Student::getAll();
             foreach($students as $student)
             {
-                $student->setTotalAttendedPercentage();
+                $student->setId($student->getId());
+                $student->setSurname($student->getSurname());
+                $student->setFirstName($student->getFirstName());
+//                $student->setPassword($student->getId());
+                $student->setJoinDate($student->getJoinDate());
+                $student->setLastGrading($student->getLastGrading());
+                $student->setCurrentGrade($student->getCurrentGrade());
+                $student->setAvgGrade($student->getAvgGrade());
+                $student->setAttendsClass($student->getAttendsClass());
+
+                $student->setTotalAttendedPercentage($student->getTotalAttendedPercentage());
+                Student::update($student);
             }
             $argsArray = [
                 'students' => $students
@@ -110,30 +116,50 @@ class MainController
 
     public function showSingleStudent(Request $request, Application $app)
     {
+//        $this->timeSince();
+//        die();
         if(ISSET($_SESSION['role'])) {
             if($_SESSION['role']=='user')
             {
                 $student = Student::getOneByUsername($_SESSION['user']);
-                print'alrrrriii '.$student->getFirstName();
+                $lastGrading = $student->getLastGrading();
                 $templateName = 'student/showSingleStudent';
-
+                $timeSinceLastGrading = $this->monthsSince($lastGrading);
+                $argsArray = [
+                    'student' => $student,
+                    'timeSince'=>$timeSinceLastGrading
+                ];
 
             }
             if($_SESSION['role']=='admin') {
                 $id = $request->get('studentId');
                 $student = Student::getOneById($id);
                 $templateName = 'admin/showSingleStudent';
-
-            }
                 $argsArray = [
                     'student' => $student,
                 ];
+
+            }
+
 
                 return $app['twig']->render($templateName . '.html.twig', $argsArray);
             }
         }
 
+        public function monthsSince($lastGrading)
+        {
 
+                $time = strtotime($lastGrading);
+                $time = time() - $time; // to get the time since that moment
+
+                $time = ($time < 1) ? 1 : $time;
+                $token = 2592000;// this amount of untis is equal to one month
+
+                $numberOfUnits = floor($time / $token);
+                $months = $numberOfUnits;// . 'Months since last grading';
+            return $months;
+
+        }
     public function showMissingAction(Request $request, Application $app)
     {
 
