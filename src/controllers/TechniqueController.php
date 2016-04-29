@@ -18,9 +18,8 @@ class TechniqueController
 {
     public function syllabus(Request $request, Application $app)
     {
-
         $beltId = $request->get('beltId');
-        $techniques = Technique::searchByColumn('belt',$beltId);
+        $techniques = Technique::searchByColumn('belt', $beltId);
 
         $argsArray = [
             'techniques' => $techniques
@@ -31,7 +30,6 @@ class TechniqueController
 
 
         // redirect to index action
-
     }
 
     public function listBelts(Request $request, Application $app)
@@ -51,7 +49,5 @@ class TechniqueController
 
 
         // redirect to index action
-
     }
-
 }

@@ -6,8 +6,7 @@
  * Time: 21:12
  */
 
-namespace Itb\Model;
-
+namespace Itb\model;
 
 use Mattsmithdev\PdoCrud\DatabaseTable;
 
@@ -32,5 +31,4 @@ class Belt extends DatabaseTable
     {
         return $this->name;
     }
-
 }

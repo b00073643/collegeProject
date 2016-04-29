@@ -14,14 +14,13 @@ use Itb\Model\Student;
 use Itb\Model\Technique;
 use Itb\Model\User;
 use Itb\Model\Session;
-
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
 class GradeController
 {
 
-    function showStudentGrade(Request $request, Application $app)
+    public function showStudentGrade(Request $request, Application $app)
     {
         $studentA = Student::getOneByUsername($_SESSION['user']);
 
@@ -31,7 +30,7 @@ class GradeController
         $studentsTechniques = Technique::searchByColumn('belt', $belt);
 
         foreach ($studentsTechniques as $tech) {
-//            $tech = Technique::getOneById($techniqueId);
+            //            $tech = Technique::getOneById($techniqueId);
             $techName = $tech->getName();
         }
 //        die();
@@ -69,9 +68,10 @@ class GradeController
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
-    function updateGrade(Request $request, Application $app)
+    public function updateGrade(Request $request, Application $app)
     {
-
+        $_SESSION['role']='admin';
+//        print 'role is'.$_SESSION['role'];
         $score = $request->get('score');
         $studentId = $request->get('studentId');
         $techniqueId = $request->get('techniqueId');
@@ -94,15 +94,20 @@ class GradeController
             $total = $total + $g->getScore();
 //            die();
         }
+
         $averageGrade = $total / 3;
+
         $eligibility = 'not ready yet for grading';
 
         if ($averageGrade > 3) {
+            $eligibility = 'Average score above a C but not enough time since last grading';
+
             $lastGrading = $student->getLastGrading();
             $timeSinceLastGrading = $this->monthsSince($lastGrading);
             if ($timeSinceLastGrading > 1) {
                 $eligibility = 'ready to grade to next belt';
-            }        }
+            }
+        }
         $techs = Technique::searchByColumn('belt', $student->getCurrentGrade());
         $argsArray = [
             'technique' => $technique,
@@ -118,10 +123,11 @@ class GradeController
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
-    function updateGradeForm(Request $request, Application $app)
+    public function updateGradeForm(Request $request, Application $app)
     {
-        if ($_SESSION['role'] = 'user')
+        if ($_SESSION['role'] = 'user') {
             $studentId = $request->get('studentId');
+        }
         $student = Student::getOneById($studentId);
         $belt = $student->getCurrentGrade();
         $techniqueToBeUpdated = Technique::searchByColumn('belt', $belt);
@@ -134,13 +140,10 @@ class GradeController
         $templateName = 'admin/showStudentTechniques';
 
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
-
-
     }
 
-    function fillGrades(Request $request, Application $app)
+    public function fillGrades(Request $request, Application $app)
     {
-
         $students = Student::getAll();
         $totalGrades = Grade::getAll();
         if (empty($totalGrades)) {
@@ -159,14 +162,10 @@ class GradeController
                     $grade->setStudentId($studentId);
                     $grade->setScore(0);
                     Grade::insert($grade);
-
-
                 }
             }
         } else {
-
             foreach ($students as $student) {
-
                 $studentId = $student->getId();
                 $name = $student->getFirstName();
                 $surname = $student->getSurname();
@@ -182,10 +181,7 @@ class GradeController
                     $grade->setScore(0);
 
                     Grade::update($grade);
-
                 }
-
-
             }
         }
         $allGrades = Grade::getAll();
@@ -210,7 +206,5 @@ class GradeController
         $numberOfUnits = floor($time / $token);
         $months = $numberOfUnits;// . 'Months since last grading';
         return $months;
-
     }
 }
-

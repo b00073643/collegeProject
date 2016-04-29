@@ -1,5 +1,6 @@
 <?php
 use Itb\StudentManager;
+
 /**
  * Created by PhpStorm.
  * User: user
@@ -22,5 +23,4 @@ class StudentTest
         // Assert
         $this->assertEquals($expectedResult, $result);
     }
-
-   }
+}

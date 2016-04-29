@@ -6,8 +6,7 @@
  * Time: 19:11
  */
 
-namespace Itb\Model;
-
+namespace Itb\model;
 
 use Mattsmithdev\PdoCrud\DatabaseTable;
 

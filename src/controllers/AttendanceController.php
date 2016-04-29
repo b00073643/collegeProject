@@ -5,17 +5,13 @@
  * Date: 22/04/2016
  * Time: 21:58
  */
-
 namespace Itb\Controller;
-
 use Itb\Model\Attendance;
 use Itb\Model\Student;
 use Itb\Model\User;
 use Itb\Model\Session;
-
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-
 class AttendanceController
 {
     public function processAttendance(Request $request, Application $app)
@@ -25,7 +21,6 @@ class AttendanceController
         $dateString = $request->get('dateString');
         $atten = $request->get('atten');
         $class1 = $request->get('sessionId');
-
         $attendance = new Attendance();
         $attendance->setSessionId($sessionId);
         $attendance->setStudentId($studentId);
@@ -38,15 +33,12 @@ class AttendanceController
             $attendance->setPresent(0);
             $attendance->setAbscent(1);
         }
-
         Attendance::insert($attendance);
 //         die();
         $class = Session::getOneById($class1);
-
         $students = Student::searchByColumn('attendsClass',$class1);
         $attendances = Attendance::getAll();
         $templateName = 'admin/markAttendance';
-
         $argsArray=[
             'students'=>$students,
             'class'=>$class,
@@ -55,21 +47,16 @@ class AttendanceController
         ];
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
 //        echo $date->format('U = Y-m-d H:i:s') . "\n";
-
 //        $timestamp = $date->getTimestamp();
 //
-
     }
-
     public function getPercentageAttendance(Request $request,Application $app)
     {
         $student = Student::getOneById(10);
 //        var_dump($student);
         $student->setTotalAttendedPercentage();
-       //$updateSuccess = Student::update($student);
-
+        //$updateSuccess = Student::update($student);
         die();
         return $app['twig']->render($templateName . '.html.twig', []);
-
     }
 }

@@ -1,29 +1,56 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: user
- * Date: 26/04/2016
- * Time: 00:46
+ * class for grades
  */
 
-namespace Itb\Model;
+namespace Itb\model;
 
-
+/**
+ *
+ */
 use Mattsmithdev\PdoCrud\DatabaseTable;
 
+/**
+ * Class Grade
+ * @package Itb\model
+ */
 class Grade extends DatabaseTable
 {
+    /**
+     * Id of user
+     * @var id
+     */
     private $id;
+    /**
+     * Id of student
+     * @var studenId
+     */
     private $studentId;
+    /**
+     * techique id
+     * @var techniqueId
+     *
+     */
     private $techniqueId;
+
+    /**
+     * score of technique displayed
+     * @var score
+     */
     private $score;
 
+    /**
+     * can find matching username and password method
+     * @param $username
+     * @param $password
+     * @return bool
+     */
     public static function canFindMatchingUsernameAndPassword($username, $password)
     {
         $user = Student::getOneByUsername($username);
 
         // if no record has this username, return FALSE
-        if(null == $user){
+        if (null == $user) {
             return false;
         }
 
@@ -35,6 +62,7 @@ class Grade extends DatabaseTable
     }
 
     /**
+     * methos to get d
      * @return mixed
      */
     public function getId()
@@ -98,19 +126,22 @@ class Grade extends DatabaseTable
         $this->techniqueId = $techniqueId;
     }
 
+    /**
+     * get a grade id from a student id and a technique id
+     * @param $studentId
+     * @param $techniqueId
+     * @return bool
+     */
     public static function getGradeIdFromStudentIdandTechniqueId($studentId, $techniqueId)
     {
-        $grades = Grade::searchByColumn('studentId',$studentId);
-        foreach($grades as $grade)
-        {
-            if ($grade->getTechniqueId() == $techniqueId)
-            {
+        $grades = Grade::searchByColumn('studentId', $studentId);
+        foreach ($grades as $grade) {
+            if ($grade->getTechniqueId() == $techniqueId) {
                 $gradeId= $grade->getId();
                 return $gradeId;
             }
         }
 
-            return false;
+        return false;
     }
-
 }

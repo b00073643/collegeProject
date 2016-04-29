@@ -8,7 +8,6 @@
 
 namespace Itb\Controller;
 
-
 use Itb\Model\User;
 use Itb\Model\Student;
 use Silex\Application;
@@ -32,7 +31,6 @@ class LoginController
 
 
         // redirect to index action
-
     }
 
 
@@ -81,39 +79,37 @@ class LoginController
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
-    public function addStudent(Request $request, Application $app)
-    {
-
-        $firstName = $request->get('firstName');
-        $surname=$request->get('surname');
-        $password=$request->get('password');
-        $attendsClass=$request->get('classType');
-
-        $ts =new \DateTime();
-        $t=$ts->getTimestamp();
-        $date = new \DateTime();
-        $student = new Student();
-//        $student->setId(25);
-        $student->setSurname($surname);
-        $student->setFirstName($firstName);
-        $student->setPassword($password);
-        $student->setJoinDate($date->format('d-m-Y'));
-        $student->setLastGrading('');
-        $student->setCurrentGrade('1');
-        $student->setAvgGrade('B');
-        $student->setSeen(1);
-        $student->setAttendsClass($attendsClass);
-        $student->setTotalAttendedPercentage(22);
-
-//        var_dump($student);
-
-        Student::insert($student);
-
-        $argsArray = ['student' => $student];
-        $templateName = '/student/showSingleStudent';
-        return $app['twig']->render($templateName . '.html.twig', $argsArray);
-
-    }
+//    public function addStudent(Request $request, Application $app)
+//    {
+//        $firstName = $request->get('firstName');
+//        $surname=$request->get('surname');
+//        $password=$request->get('password');
+//        $attendsClass=$request->get('classType');
+//
+//        $ts =new \DateTime();
+//        $t=$ts->getTimestamp();
+//        $date = new \DateTime();
+//        $student = new Student();
+////        $student->setId(25);
+//
+//        $student->setSurname($surname);
+//        $student->setFirstName($firstName);
+//        $student->setPassword($password);
+//        $student->setJoinDate($date->format('d-m-Y'));
+//        $student->setLastGrading('');
+//        $student->setCurrentGrade('9');
+//        $student->setAvgGrade('');
+//        $student->setAttendsClass($attendsClass);
+//        $student->setTotalAttendedPercentage(22);
+////        var_dump($student);
+//
+//        Student::insert($student);
+//
+//        $argsArray = ['student' => $student];
+//        $templateName = 'admin/showSingleStudent';
+//        return $app['twig']->render($templateName . '.html.twig', $argsArray);
+//
+//    }
 
 
     public function processStudentLogin(Request $request, Application $app)
@@ -123,10 +119,10 @@ class LoginController
         // default is bad login
         $isLoggedIn = false;
 
-        $studentLogin = Student::canFindMatchingUsernameAndPassword($username,$password);
+        $studentLogin = Student::canFindMatchingUsernameAndPassword($username, $password);
 
         // action depending on login success
-        if($studentLogin){
+        if ($studentLogin) {
 
             // User::set
                 $_SESSION['role']='user';
@@ -137,13 +133,13 @@ class LoginController
 
             $argsArray = ['user' => $username, 'pass' =>$password];
             $templateName = 'student/studentIndex';
-            return $app['twig']->render($templateName . '.html.twig',$argsArray);
+            return $app['twig']->render($templateName . '.html.twig', $argsArray);
 
             //     require_once __DIR__ . '/../templates/loginSuccess.php';
         } else {
             $argsArray = ['user' => $username];
             $templateName = 'loginFail';
-            return $app['twig']->render($templateName . '.html.twig',$argsArray);
+            return $app['twig']->render($templateName . '.html.twig', $argsArray);
         }
     }
 
@@ -159,18 +155,14 @@ class LoginController
 
         //  $user =  User::getOneByUsername($username);
         // action depending on login success
-        if($isLoggedIn){
-//            User::set
+        if ($isLoggedIn) {
+            //            User::set
 //
             $isAdmin = User::canFindMatchingAdminUsernameAndPassword($username, $password);
-            if($isAdmin)
-            {
+            if ($isAdmin) {
                 $_SESSION['role']='admin';
-            }
-            else{
-
+            } else {
                 $_SESSION['role']='user';
-
             }
             User::getOneByUsername($username);
             // STORE login status SESSION
@@ -178,13 +170,13 @@ class LoginController
 
             $argsArray = ['user' => $username, 'pass' =>$password];
             $templateName = 'loginSuccess';
-            return $app['twig']->render($templateName . '.html.twig',$argsArray);
+            return $app['twig']->render($templateName . '.html.twig', $argsArray);
 
        //     require_once __DIR__ . '/../templates/loginSuccess.php';
         } else {
             $argsArray = ['user' => $username];
-           $templateName = 'loginFail';
-            return $app['twig']->render($templateName . '.html.twig',$argsArray);
+            $templateName = 'loginFail';
+            return $app['twig']->render($templateName . '.html.twig', $argsArray);
         }
     }
 
@@ -193,7 +185,7 @@ class LoginController
         $isAdminLoggedIn = false;
 
         // user is logged in if there is a 'user' entry in the SESSION superglobal
-        if(isset($_SESSION['user'])&& $_SESSION['role']=='admin'){
+        if (isset($_SESSION['user'])&& $_SESSION['role']=='admin') {
             $isAdminLoggedIn = true;
         }
 

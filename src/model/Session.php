@@ -6,8 +6,7 @@
  * Time: 15:22
  */
 
-namespace Itb\Model;
-
+namespace Itb\model;
 
 use Mattsmithdev\PdoCrud\DatabaseTable;
 use Mattsmithdev\PdoCrud\DatabaseManager;
@@ -64,6 +63,4 @@ class Session extends DatabaseTable
     {
         $this->instructor = $instructor;
     }
-
-
 }

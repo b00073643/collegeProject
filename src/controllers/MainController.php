@@ -15,29 +15,18 @@ class MainController
 
         //$templateName = 'index';
         $argsArray=['user'=>'user'];
-        if(isset($_SESSION['user']))
-        {
+        if (isset($_SESSION['user'])) {
             $argsArray=['user'=>$_SESSION['user']];
         }
-        if(ISSET($_SESSION['role']))
-        {
-
-            if($_SESSION['role']=='admin') {
-
+        if (isset($_SESSION['role'])) {
+            if ($_SESSION['role']=='admin') {
                 $templateName = 'admin/adminIndex';
                 return $app['twig']->render($templateName . '.html.twig', $argsArray);
-
-            }
-
-            else if($_SESSION['role']=='user') {
+            } elseif ($_SESSION['role']=='user') {
                 $templateName = 'student/studentIndex';
                 return $app['twig']->render($templateName . '.html.twig', $argsArray);
-
             }
-
-        }
-        else{
-
+        } else {
             $templateName = 'index';
             return $app['twig']->render($templateName . '.html.twig', $argsArray);
         }
@@ -74,53 +63,49 @@ class MainController
     }
 
     public function showStudents(Request $request, Application $app)
-{
+    {            print'in method';
 
-    if(ISSET($_SESSION['role'])) {
-
-        if($_SESSION['role']=='admin') {
-
-            $students = Student::getAll();
-            foreach($students as $student)
-            {
-                $student->setId($student->getId());
-                $student->setSurname($student->getSurname());
-                $student->setFirstName($student->getFirstName());
+        if (isset($_SESSION['role'])) {
+            print'is set anway as '.$_SESSION['role'];
+            if ($_SESSION['role']=='admin') {
+                $students = Student::getAll();
+                foreach ($students as $student) {
+                    $student->setId($student->getId());
+                    $student->setSurname($student->getSurname());
+//                    $student->setUserName($student->getUserName());
+                    $student->setFirstName($student->getFirstName());
 //                $student->setPassword($student->getId());
                 $student->setJoinDate($student->getJoinDate());
-                $student->setLastGrading($student->getLastGrading());
-                $student->setCurrentGrade($student->getCurrentGrade());
-                $student->setAvgGrade($student->getAvgGrade());
-                $student->setAttendsClass($student->getAttendsClass());
+                    $student->setLastGrading($student->getLastGrading());
+                    $student->setCurrentGrade($student->getCurrentGrade());
+                    $student->setAvgGrade($student->getAvgGrade());
+                    $student->setAttendsClass($student->getAttendsClass());
 
-                $student->setTotalAttendedPercentage($student->getTotalAttendedPercentage());
-                Student::update($student);
-            }
-            $argsArray = [
+                    $student->setTotalAttendedPercentage($student->getTotalAttendedPercentage());
+
+                    Student::update($student);
+                }
+                $argsArray = [
                 'students' => $students
             ];
-            $templateName = 'admin/studentListWithDelete';
-        }
-
-        else{
-            $message ='Sorry we are afraid you have tried to select an admin feature';
-            $argsArray = [
+                $templateName = 'admin/studentListWithDelete';
+            } else {
+                $message ='Sorry we are afraid you have tried to select an admin feature';
+                $argsArray = [
                 'message' => $message
             ];
-            $templateName = 'error';
-        }
+                $templateName = 'error';
+            }
             return $app['twig']->render($templateName . '.html.twig', $argsArray);
-
+        }
     }
-}
 
     public function showSingleStudent(Request $request, Application $app)
     {
-//        $this->timeSince();
+        //        $this->timeSince();
 //        die();
-        if(ISSET($_SESSION['role'])) {
-            if($_SESSION['role']=='user')
-            {
+        if (isset($_SESSION['role'])) {
+            if ($_SESSION['role']=='user') {
                 $student = Student::getOneByUsername($_SESSION['user']);
                 $lastGrading = $student->getLastGrading();
                 $templateName = 'student/showSingleStudent';
@@ -129,40 +114,40 @@ class MainController
                     'student' => $student,
                     'timeSince'=>$timeSinceLastGrading
                 ];
-
             }
-            if($_SESSION['role']=='admin') {
+            if ($_SESSION['role']=='admin') {
                 $id = $request->get('studentId');
                 $student = Student::getOneById($id);
+                $lastGrading = $student->getLastGrading();
+                $timeSinceLastGrading = $this->monthsSince($lastGrading);
+
                 $templateName = 'admin/showSingleStudent';
                 $argsArray = [
                     'student' => $student,
+                    'timeSince'=>$timeSinceLastGrading
+
                 ];
-
             }
 
 
-                return $app['twig']->render($templateName . '.html.twig', $argsArray);
-            }
+            return $app['twig']->render($templateName . '.html.twig', $argsArray);
         }
+    }
 
-        public function monthsSince($lastGrading)
-        {
-
-                $time = strtotime($lastGrading);
-                $time = time() - $time; // to get the time since that moment
+    public function monthsSince($lastGrading)
+    {
+        $time = strtotime($lastGrading);
+        $time = time() - $time; // to get the time since that moment
 
                 $time = ($time < 1) ? 1 : $time;
-                $token = 2592000;// this amount of untis is equal to one month
+        $token = 2592000;// this amount of untis is equal to one month
 
                 $numberOfUnits = floor($time / $token);
-                $months = $numberOfUnits;// . 'Months since last grading';
+        $months = $numberOfUnits;// . 'Months since last grading';
             return $months;
-
-        }
+    }
     public function showMissingAction(Request $request, Application $app)
     {
-
         $message= 'Sorry no ID was entered';
 
         $argsArray = [
@@ -171,14 +156,12 @@ class MainController
         $templateName='error';
 
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
-
     }
 
     public function errorAction(Application $app, $code)
     {
         $message = '404 Error sorry cant find resource';
-        if($code != 404)
-        {
+        if ($code != 404) {
             $message='Sorry UNKOWN ERROR OCCURRED';
         }
         $argsArray = [
@@ -188,7 +171,4 @@ class MainController
 
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
-
-
 }
-

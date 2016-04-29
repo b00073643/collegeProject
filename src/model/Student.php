@@ -1,12 +1,9 @@
 <?php
 namespace Itb\Model;
-
 use Mattsmithdev\PdoCrud\DatabaseTable;
 use Mattsmithdev\PdoCrud\DatabaseManager;
-
 class Student extends DatabaseTable
 {
-
     private $id;
     private $surname;
     private $firstName;
@@ -15,14 +12,27 @@ class Student extends DatabaseTable
     private $lastGrading;
     private $currentGrade;
     private $avgGrade;
-//    private $seen;
+    private $username;
+
+    /**
+     * @return mixed
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param mixed $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
     private $attendsClass;
     private $totalAttendedPercentage;
 //    private $totalAttended;
 //    private $totalMissed;
-
-
-
     public function getTotalAttendedPercentage()
     {
         return $this->totalAttendedPercentage;
@@ -35,9 +45,7 @@ class Student extends DatabaseTable
         foreach ($studentAttendance as $sa) {
             $totalPresent+=$sa->getPresent();
             $totalAbscent+=$sa->getAbscent();
-
         }
-
         $totalClasses=$totalPresent+$totalAbscent;
         if ($totalClasses < 1) {
             $this->totalAttendedPercentage=0;
@@ -46,7 +54,7 @@ class Student extends DatabaseTable
             $percent = (100 * $totalPresent) / $totalClasses;
             $this->totalAttendedPercentage = intval($percent);
         }
-}
+    }
     /**
      * @return mixed
      */
@@ -54,7 +62,6 @@ class Student extends DatabaseTable
     {
         return $this->totalClasses;
     }
-
     /**
      * @param mixed $totalClasses
      */
@@ -62,8 +69,6 @@ class Student extends DatabaseTable
     {
         $this->totalClasses = $totalClasses;
     }
-
-
     /**
      * @return mixed
      */
@@ -71,7 +76,6 @@ class Student extends DatabaseTable
     {
         return $this->attendsClass;
     }
-
     /**
      * @param mixed $attendsClass
      */
@@ -79,7 +83,6 @@ class Student extends DatabaseTable
     {
         $this->attendsClass = $attendsClass;
     }
-
     /**
      * @return mixed
      */
@@ -88,8 +91,6 @@ class Student extends DatabaseTable
         return $this->password;
     }
 
-    
-
     /**
      * @return int
      */
@@ -97,7 +98,6 @@ class Student extends DatabaseTable
     {
         return $this->id;
     }
-
     /**
      * @param int $id
      */
@@ -105,7 +105,6 @@ class Student extends DatabaseTable
     {
         $this->id = $id;
     }
-
     /**
      * @return string
      */
@@ -113,7 +112,6 @@ class Student extends DatabaseTable
     {
         return $this->surname;
     }
-
     /**
      * @param string $surname
      */
@@ -121,7 +119,6 @@ class Student extends DatabaseTable
     {
         $this->surname = $surname;
     }
-
     /**
      * @return string
      */
@@ -129,7 +126,6 @@ class Student extends DatabaseTable
     {
         return $this->firstName;
     }
-
     /**
      * @param string $firstName
      */
@@ -137,7 +133,6 @@ class Student extends DatabaseTable
     {
         $this->firstName = $firstName;
     }
-
     /**
      * @return float
      */
@@ -145,7 +140,6 @@ class Student extends DatabaseTable
     {
         return $this->joinDate;
     }
-
     /**
      * @param float $joinDate
      */
@@ -153,7 +147,6 @@ class Student extends DatabaseTable
     {
         $this->joinDate = $joinDate;
     }
-
     /**
      * @return int
      */
@@ -161,7 +154,6 @@ class Student extends DatabaseTable
     {
         return $this->lastGrading;
     }
-
     /**
      * @param int $lastGrading
      */
@@ -169,7 +161,6 @@ class Student extends DatabaseTable
     {
         $this->lastGrading = $lastGrading;
     }
-
     /**
      * @return int
      */
@@ -177,7 +168,6 @@ class Student extends DatabaseTable
     {
         return $this->currentGrade;
     }
-
     /**
      * @param int $currentGrade
      */
@@ -185,7 +175,6 @@ class Student extends DatabaseTable
     {
         $this->currentGrade = $currentGrade;
     }
-
     /**
      * @return mixed
      */
@@ -193,7 +182,6 @@ class Student extends DatabaseTable
     {
         return $this->avgGrade;
     }
-
     /**
      * @param mixed $avgGrade
      */
@@ -201,7 +189,6 @@ class Student extends DatabaseTable
     {
         $this->avgGrade = $avgGrade;
     }
-
     /**
      * @return int
      */
@@ -217,11 +204,6 @@ class Student extends DatabaseTable
 //    {
 //        $this->seen = $seen;
 //    }
-
-
-
-
-
 //    public static function update(Student $student)
 //    {
 //        $id=2;
@@ -245,52 +227,38 @@ class Student extends DatabaseTable
     public function setPassword($password)
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
         $this->password = $hashedPassword;
     }
-
     public function addOneToSeen($seen)
     {
-
         $this->seen = $seen+1;
         return $this->seen;
     }
-
-
     public static function canFindMatchingUsernameAndPassword($username, $password)
     {
         $user = Student::getOneByUsername($username);
         // if no record has this username, return FALSE
         if(null == $user){
-
             return false;
         }
-
         // hashed correct password
         $hashedStoredPassword = $user->getPassword();
-
         // return whether or not hash of input password matches stored hash
         return password_verify($password, $hashedStoredPassword);
     }
-
-
     public static function getOneByUsername($firstName)
     {
         $db = new DatabaseManager();
         $connection = $db->getDbh();
-
         $sql = 'SELECT * FROM students WHERE firstName=:firstName';
         $statement = $connection->prepare($sql);
         $statement->bindParam(':firstName', $firstName, \PDO::PARAM_STR);
         $statement->setFetchMode(\PDO::FETCH_CLASS, __CLASS__);
-
         $statement->execute();
-
         if ($object = $statement->fetch()) {
             return $object;
         } else {
             return null;
         }
     }
-
 }

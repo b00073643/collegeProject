@@ -1,5 +1,5 @@
 <?php
-namespace Itb\Model;
+namespace Itb\model;
 
 use Mattsmithdev\PdoCrud\DatabaseTable;
 use Mattsmithdev\PdoCrud\DatabaseManager;
@@ -93,7 +93,7 @@ class User extends DatabaseTable
         $user = User::getOneByUsername($username);
 
         // if no record has this username, return FALSE
-        if(null == $user){
+        if (null == $user) {
             return false;
         }
 
@@ -109,7 +109,7 @@ class User extends DatabaseTable
         $user = User::getOneByUsername($username);
 
         // if no record has this username, return FALSE
-        if(null == $user){
+        if (null == $user) {
             return false;
         }
 
@@ -145,8 +145,4 @@ class User extends DatabaseTable
             return null;
         }
     }
-
-
-
-
 }

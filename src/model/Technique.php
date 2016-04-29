@@ -6,8 +6,7 @@
  * Time: 00:19
  */
 
-namespace Itb\Model;
-
+namespace Itb\model;
 
 use Mattsmithdev\PdoCrud\DatabaseTable;
 
@@ -64,5 +63,4 @@ class Technique extends DatabaseTable
     {
         $this->belt = $belt;
     }
-
 }

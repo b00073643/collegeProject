@@ -3,6 +3,7 @@
 namespace ItbTests;
 
 use Itb\Model\Session;
+
 class SessionTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetId()
@@ -88,7 +89,4 @@ class SessionTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals($expectedResult, $result);
     }
-
 }
-
-

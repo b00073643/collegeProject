@@ -2,10 +2,9 @@
 
 {% block pageTitle %}Single Student Page {% endblock %}
 
-{% block main %}
+{% block main %}sadasd
 <h1>{{ student.firstname }} {{ student.surname }}</h1>
 
-    {{ student.seen }}
     ID = {{ student.id }}
     <br>
     Join Date = {{ student.joindate }}
@@ -16,15 +15,15 @@
     <br>
     Average Grade = {{ student.avggrade }}
     <br>
-    {#Eligible = {{ student.eligible }}#}
-    <br>
-    {#Techniques seen  = {{ student.seen }}#}
+    {% if timeSince is defined %}
+    Time Since Last Grading is {{ timeSince }} months
+        {% endif %}
 
     <br>
     {#<a href = "/addTechniqueSeen/{{ student.id }}">Add Technique Seen</a>#}
 
 
-    </form>
+    {#</form>#}
 
 
 {% endblock %}
