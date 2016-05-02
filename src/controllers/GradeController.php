@@ -77,7 +77,7 @@ class GradeController
         $techniqueId = $request->get('techniqueId');
         $tech = Technique::getOneById($techniqueId);
         $techName = $tech->getName();
-        $gradeId = Grade::getGradeIdFromStudentIdandTechniqueId($studentId, $techniqueId);
+        $gradeId = $this->getGradeIdFromStudentIdandTechniqueId($studentId, $techniqueId);
 
         $grade = new Grade();
         $grade->setId($gradeId);
@@ -206,5 +206,18 @@ class GradeController
         $numberOfUnits = floor($time / $token);
         $months = $numberOfUnits;// . 'Months since last grading';
         return $months;
+    }
+
+    public static function getGradeIdFromStudentIdandTechniqueId($studentId, $techniqueId)
+    {
+        $grades = Grade::searchByColumn('studentId', $studentId);
+        foreach ($grades as $grade) {
+            if ($grade->getTechniqueId() == $techniqueId) {
+                $gradeId= $grade->getId();
+                return $gradeId;
+            }
+        }
+
+        return false;
     }
 }

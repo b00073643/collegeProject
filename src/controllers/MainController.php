@@ -3,6 +3,7 @@
 namespace Itb\Controller;
 
 use Itb\Model\Student;
+use Itb\Model\Attendance;
 use Itb\Model\User;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
@@ -81,7 +82,7 @@ class MainController
                     $student->setAvgGrade($student->getAvgGrade());
                     $student->setAttendsClass($student->getAttendsClass());
 
-                    $student->setTotalAttendedPercentage($student->getTotalAttendedPercentage());
+                    $student->setTotalAttendedPercentage($this->setTotalAttendedPercentage($student->getId()));
 
                     Student::update($student);
                 }
@@ -99,7 +100,24 @@ class MainController
             return $app['twig']->render($templateName . '.html.twig', $argsArray);
         }
     }
-
+    public function setTotalAttendedPercentage($id)
+    {
+        $studentAttendance = Attendance::searchByColumn('studentId',$id);
+        $totalPresent=0;
+        $totalAbscent=0;
+        foreach ($studentAttendance as $sa) {
+            $totalPresent+=$sa->getPresent();
+            $totalAbscent+=$sa->getAbscent();
+        }
+        $totalClasses=$totalPresent+$totalAbscent;
+        if ($totalClasses < 1) {
+            $this->totalAttendedPercentage=0;
+        }
+        else {
+            $percent = (100 * $totalPresent) / $totalClasses;
+            return intval($percent);
+        }
+    }
     public function showSingleStudent(Request $request, Application $app)
     {
         //        $this->timeSince();

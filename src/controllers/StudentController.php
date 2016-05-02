@@ -46,7 +46,7 @@ class StudentController
         $student->setCurrentGrade(9);
         $student->setAvgGrade('E');
         $student->setAttendsClass($attendsClass);
-        $student->setTotalAttendedPercentage(22);
+        $student->setTotalAttendedPercentage(0);
         Student::insert($student);
         $student=Student::getOneByUsername($userName);
         $argsArray = ['student' => $student];

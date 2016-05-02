@@ -13,6 +13,8 @@ class Student extends DatabaseTable
     private $currentGrade;
     private $avgGrade;
     private $username;
+    private $attendsClass;
+    private $totalAttendedPercentage;
 
     /**
      * @return mixed
@@ -29,32 +31,36 @@ class Student extends DatabaseTable
     {
         $this->username = $username;
     }
-    private $attendsClass;
-    private $totalAttendedPercentage;
+
 //    private $totalAttended;
 //    private $totalMissed;
     public function getTotalAttendedPercentage()
     {
         return $this->totalAttendedPercentage;
     }
-    public function setTotalAttendedPercentage()
+
+    public function setTotalAttendedPercentage($t)
     {
-        $studentAttendance = Attendance::searchByColumn('studentId',$this->id);
-        $totalPresent=0;
-        $totalAbscent=0;
-        foreach ($studentAttendance as $sa) {
-            $totalPresent+=$sa->getPresent();
-            $totalAbscent+=$sa->getAbscent();
-        }
-        $totalClasses=$totalPresent+$totalAbscent;
-        if ($totalClasses < 1) {
-            $this->totalAttendedPercentage=0;
-        }
-        else {
-            $percent = (100 * $totalPresent) / $totalClasses;
-            $this->totalAttendedPercentage = intval($percent);
-        }
+        $this->totalAttendedPercentage = $t;
     }
+//    public function setTotalAttendedPercentage()
+//    {
+//        $studentAttendance = Attendance::searchByColumn('studentId',$this->id);
+//        $totalPresent=0;
+//        $totalAbscent=0;
+//        foreach ($studentAttendance as $sa) {
+//            $totalPresent+=$sa->getPresent();
+//            $totalAbscent+=$sa->getAbscent();
+//        }
+//        $totalClasses=$totalPresent+$totalAbscent;
+//        if ($totalClasses < 1) {
+//            $this->totalAttendedPercentage=0;
+//        }
+//        else {
+//            $percent = (100 * $totalPresent) / $totalClasses;
+//            $this->totalAttendedPercentage = intval($percent);
+//        }
+//    }
     /**
      * @return mixed
      */
@@ -189,63 +195,31 @@ class Student extends DatabaseTable
     {
         $this->avgGrade = $avgGrade;
     }
-    /**
-     * @return int
-     */
-//    public function getSeen()
-//    {
-//        return $this->seen;
-//    }
-//
-//    /**
-//     * @param int $seen
-//     */
-//    public function setSeen($seen)
-//    {
-//        $this->seen = $seen;
-//    }
-//    public static function update(Student $student)
-//    {
-//        $id=2;
-//        $isOnDatabase = Student::getOneById($id);
-//        $id = $student->getId();
-//        $seen = $student->getSeen();
-//        $totalAttendedPercentage = $student->getTotalAttendedPercentage();
-//        echo"$id and $seen";
-//        $db = new DatabaseManager();
-//        $connection = $db->getDbh();
-//
-//        $sql = 'UPDATE students SET seen = :seen, totalAttendedPercentage= :totalAttendedPercentage WHERE id=:id';
-//        $statement = $connection->prepare($sql);
-//        $statement->bindParam(':seen', $seen, \PDO::PARAM_INT);
-//        $statement->bindParam(':id', $id, \PDO::PARAM_INT);
-//
-//        $queryWasSuccessful = $statement->execute();
-//
-//        /*        return $queryWasSuccessful;*/
-//    }
+
     public function setPassword($password)
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $this->password = $hashedPassword;
     }
-    public function addOneToSeen($seen)
-    {
-        $this->seen = $seen+1;
-        return $this->seen;
-    }
-    public static function canFindMatchingUsernameAndPassword($username, $password)
-    {
-        $user = Student::getOneByUsername($username);
-        // if no record has this username, return FALSE
-        if(null == $user){
-            return false;
-        }
-        // hashed correct password
-        $hashedStoredPassword = $user->getPassword();
-        // return whether or not hash of input password matches stored hash
-        return password_verify($password, $hashedStoredPassword);
-    }
+
+//    public static function canFindMatchingUsernameAndPassword($username, $password)
+//    {
+//        $user = Student::getOneByUsername($username);
+//        // if no record has this username, return FALSE
+//        if(null == $user){
+//            return false;
+//        }
+//        // hashed correct password
+//        $hashedStoredPassword = $user->getPassword();
+//        // return whether or not hash of input password matches stored hash
+//        return password_verify($password, $hashedStoredPassword);
+//    }
+    /**
+     * Method to find a user by their username
+     * @param $firstName
+     * @return mixed|null
+     * @codeCoverageIgnore
+     */
     public static function getOneByUsername($firstName)
     {
         $db = new DatabaseManager();

@@ -82,50 +82,57 @@ class User extends DatabaseTable
     }
 
     /**
-     * return success (or not) of attempting to find matching username/password in the repo
+     * function to find a username and password
      * @param $username
      * @param $password
-     *
      * @return bool
+     * @codeCoverageIgnore
      */
-    public static function canFindMatchingUsernameAndPassword($username, $password)
-    {
-        $user = User::getOneByUsername($username);
+//    public static function canFindMatchingUsernameAndPassword($username, $password)
+//    {
+//        $user = User::getOneByUsername($username);
+//
+//        // if no record has this username, return FALSE
+//        if (null == $user) {
+//            return false;
+//        }
+//
+//        // hashed correct password
+//        $hashedStoredPassword = $user->getPassword();
+//
+//        // return whether or not hash of input password matches stored hash
+//        return password_verify($password, $hashedStoredPassword);
+//    }
 
-        // if no record has this username, return FALSE
-        if (null == $user) {
-            return false;
-        }
-
-        // hashed correct password
-        $hashedStoredPassword = $user->getPassword();
-
-        // return whether or not hash of input password matches stored hash
-        return password_verify($password, $hashedStoredPassword);
-    }
-
-    public static function canFindMatchingAdminUsernameAndPassword($username, $password)
-    {
-        $user = User::getOneByUsername($username);
-
-        // if no record has this username, return FALSE
-        if (null == $user) {
-            return false;
-        }
-
-        // hashed correct password
-        $hashedStoredPassword = $user->getPassword();
-        $isAdmin= $user->getRole();
-        echo"$isAdmin";
-        // return whether or not hash of input password matches stored hash
-        return $isAdmin;
-    }
+    /**
+     * function to find a username and password
+     * @param $username
+     * @param $password
+     * @return bool
+     * @codeCoverageIgnore
+     */
+//    public static function canFindMatchingAdminUsernameAndPassword($username, $password)
+//    {
+//        $user = User::getOneByUsername($username);
+//
+//        // if no record has this username, return FALSE
+//        if (null == $user) {
+//            return false;
+//        }
+//
+//        // hashed correct password
+//        $hashedStoredPassword = $user->getPassword();
+//        $isAdmin= $user->getRole();
+//        echo"$isAdmin";
+//        // return whether or not hash of input password matches stored hash
+//        return $isAdmin;
+//    }
     /**
      * if record exists with $username, return User object for that record
      * otherwise return 'null'
      *
      * @param $username
-     *
+     * @codeCoverageIgnore
      * @return mixed|null
      */
     public static function getOneByUsername($username)

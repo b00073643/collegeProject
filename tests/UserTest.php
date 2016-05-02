@@ -6,6 +6,34 @@ use Itb\Model\User;
 
 class UserTest extends \PHPUnit_Framework_TestCase
 {
+    public function testGetRole()
+    {
+        // Arrange
+        $u = new User();
+        $expectedResult = 'admin';
+
+        //Act
+        $u->setRole('admin');
+        $result=$u->getRole();
+
+        // Assert
+        $this->assertEquals($expectedResult, $result);
+    }
+
+    public function testSetRole()
+    {
+        // Arrange
+        $u = new User();
+        $expectedResult = 'admin';
+
+        //Act
+        $u->setRole('admin');
+        $result=$u->getRole();
+
+        // Assert
+        $this->assertEquals($expectedResult, $result);
+    }
+
     public function testGetId()
     {
         // Arrange
@@ -32,7 +60,19 @@ class UserTest extends \PHPUnit_Framework_TestCase
     // Assert
     $this->assertEquals($expectedResult, $result);
     }
+    public function testSetUsername()
+    {
+        // Arrange
+        $u = new User();
+        $expectedResult = 'tommy';
 
+        //Act
+        $u->setUsername('tommy');
+        $result=$u->getUsername();
+
+        // Assert
+        $this->assertEquals($expectedResult, $result);
+    }
     public function testGetUsername()
     {
         // Arrange
@@ -47,45 +87,37 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedResult, $result);
     }
 
-    public function testSetRole()
+    public function testSetPassword()
     {
         // Arrange
         $u = new User();
-        $expectedResult = 'admin';
+        $password = "password";
+        $expectedResult = $password;
 
-        //Act
-        $u->setUsername('admin');
-        $result=$u->getUsername();
+        $u->setPassword( $expectedResult);
 
+        // Act
+        $result = $u->getPassword();
+        $bool = password_verify("password", $result);
         // Assert
-        $this->assertEquals($expectedResult, $result);
-    }
-    public function testGetRole()
-    {
-        // Arrange
-    $u = new User();
-        $expectedResult = 'admin';
-
-    //Act
-    $u->setUsername('admin');
-        $result=$u->getUsername();
-
-    // Assert
-    $this->assertEquals($expectedResult, $result);
+        $this->assertTrue($bool);
     }
 
-    public function testGetcanFindMatchingAdminUsernameAndPassword()
+    public function testGetPassword()
     {
         // Arrange
         $u = new User();
-        $expectedResult = true;
+        $password = "password";
+        $expectedResult = $password;
 
-        //Act
-        $user=$u->setUsername('admin');
-        $pass=$u->setPassword('pass');
-        $result=$u->canFindMatchingUsernameAndPassword($user, $pass);
+        $u->setPassword( $expectedResult);
 
+        // Act
+        $result = $u->getPassword();
+        $bool = password_verify("password", $result);
         // Assert
-        $this->assertEquals($expectedResult, $result);
+        $this->assertTrue($bool);
     }
+
+
 }

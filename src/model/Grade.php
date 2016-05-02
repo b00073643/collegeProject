@@ -9,6 +9,7 @@ namespace Itb\model;
  *
  */
 use Mattsmithdev\PdoCrud\DatabaseTable;
+use Itb\Model\Student;
 
 /**
  * Class Grade
@@ -45,24 +46,24 @@ class Grade extends DatabaseTable
      * @param $password
      * @return bool
      */
-    public static function canFindMatchingUsernameAndPassword($username, $password)
-    {
-        $user = Student::getOneByUsername($username);
-
-        // if no record has this username, return FALSE
-        if (null == $user) {
-            return false;
-        }
-
-        // hashed correct password
-        $hashedStoredPassword = $user->getPassword();
-
-        // return whether or not hash of input password matches stored hash
-        return password_verify($password, $hashedStoredPassword);
-    }
+//    public static function canFindMatchingUsernameAndPassword($username, $password)
+//    {
+//        $user = Student::getOneByUsername($username);
+//
+//        // if no record has this username, return FALSE
+//        if (null == $user) {
+//            return false;
+//        }
+//
+//        // hashed correct password
+//        $hashedStoredPassword = $user->getPassword();
+//
+//        // return whether or not hash of input password matches stored hash
+//        return password_verify($password, $hashedStoredPassword);
+//    }
 
     /**
-     * methos to get d
+     * methos to get
      * @return mixed
      */
     public function getId()
@@ -132,16 +133,16 @@ class Grade extends DatabaseTable
      * @param $techniqueId
      * @return bool
      */
-    public static function getGradeIdFromStudentIdandTechniqueId($studentId, $techniqueId)
-    {
-        $grades = Grade::searchByColumn('studentId', $studentId);
-        foreach ($grades as $grade) {
-            if ($grade->getTechniqueId() == $techniqueId) {
-                $gradeId= $grade->getId();
-                return $gradeId;
-            }
-        }
-
-        return false;
-    }
+//    public static function getGradeIdFromStudentIdandTechniqueId($studentId, $techniqueId)
+//    {
+//        $grades = Grade::searchByColumn('studentId', $studentId);
+//        foreach ($grades as $grade) {
+//            if ($grade->getTechniqueId() == $techniqueId) {
+//                $gradeId= $grade->getId();
+//                return $gradeId;
+//            }
+//        }
+//
+//        return false;
+//    }
 }

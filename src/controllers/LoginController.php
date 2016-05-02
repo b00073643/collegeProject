@@ -119,7 +119,7 @@ class LoginController
         // default is bad login
         $isLoggedIn = false;
 
-        $studentLogin = Student::canFindMatchingUsernameAndPassword($username, $password);
+        $studentLogin = $this->canFindMatchingUsernameAndPassword($username, $password);
 
         // action depending on login success
         if ($studentLogin) {
@@ -143,6 +143,21 @@ class LoginController
         }
     }
 
+    public static function canFindMatchingUsernameAndPassword($username, $password)
+    {
+        $user = Student::getOneByUsername($username);
+
+        // if no record has this username, return FALSE
+        if (null == $user) {
+            return false;
+        }
+
+        // hashed correct password
+        $hashedStoredPassword = $user->getPassword();
+
+        // return whether or not hash of input password matches stored hash
+        return password_verify($password, $hashedStoredPassword);
+    }
     public function processAdminLoginAction(Request $request, Application $app)
     {
         $username = $request->get('username');
@@ -151,14 +166,14 @@ class LoginController
         $isLoggedIn = false;
 
         // search for user with username in repository
-        $isLoggedIn = User::canFindMatchingUsernameAndPassword($username, $password);
+        $isLoggedIn = $this->canFindMatchingUsernameAndPassword($username, $password);
 
         //  $user =  User::getOneByUsername($username);
         // action depending on login success
         if ($isLoggedIn) {
             //            User::set
 //
-            $isAdmin = User::canFindMatchingAdminUsernameAndPassword($username, $password);
+            $isAdmin = $this->canFindMatchingAdminUsernameAndPassword($username, $password);
             if ($isAdmin) {
                 $_SESSION['role']='admin';
             } else {
@@ -203,4 +218,23 @@ class LoginController
 
         return $username;
     }
+
+    public static function canFindMatchingAdminUsernameAndPassword($username, $password)
+    {
+        $user = User::getOneByUsername($username);
+
+        // if no record has this username, return FALSE
+        if (null == $user) {
+            return false;
+        }
+
+        // hashed correct password
+        $hashedStoredPassword = $user->getPassword();
+        $isAdmin= $user->getRole();
+        echo"$isAdmin";
+        // return whether or not hash of input password matches stored hash
+        return $isAdmin;
+    }
+
+
 }

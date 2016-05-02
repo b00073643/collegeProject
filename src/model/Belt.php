@@ -25,6 +25,22 @@ class Belt extends DatabaseTable
     }
 
     /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
      * @return mixed
      */
     public function getName()
