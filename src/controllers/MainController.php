@@ -138,7 +138,7 @@ class MainController
     public function showStudents(Request $request, Application $app)
     {
         if (isset($_SESSION['role'])) {
-            print'is set anway as '.$_SESSION['role'];
+            //            print'is set anway as '.$_SESSION['role'];
             if ($_SESSION['role']=='admin') {
                 $students = Student::getAll();
                 foreach ($students as $student) {
