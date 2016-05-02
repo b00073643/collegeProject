@@ -8,6 +8,7 @@
 
 namespace Itb\Controller;
 
+use Itb\Model\Grade;
 use Itb\Model\Student;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,6 +60,25 @@ class StudentController
         $student->setTotalAttendedPercentage(0);
         Student::insert($student);
         $student=Student::getOneByUsername($userName);
+        $studentId=$student->getId();
+        $grade = new Grade();
+        $grade->setStudentId($studentId);
+        $grade->setScore(0);
+        $grade->setTechniqueId(10);
+        Grade::insert($grade);
+
+        $grade1 = new Grade();
+        $grade1->setStudentId($studentId);
+        $grade1->setScore(0);
+        $grade1->setTechniqueId(10);
+        Grade::insert($grade1);
+
+        $grade2 = new Grade();
+        $grade2->setStudentId($studentId);
+        $grade2->setScore(0);
+        $grade2->setTechniqueId(10);
+        Grade::insert($grade2);
+
         $argsArray = ['student' => $student];
         $templateName = 'admin/showSingleStudent';
         return $app['twig']->render($templateName . '.html.twig', $argsArray);

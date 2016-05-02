@@ -86,7 +86,6 @@ class GradeController
     public function updateGrade(Request $request, Application $app)
     {
         $_SESSION['role']='admin';
-//        print 'role is'.$_SESSION['role'];
         $score = $request->get('score');
         $studentId = $request->get('studentId');
         $techniqueId = $request->get('techniqueId');
@@ -132,9 +131,7 @@ class GradeController
             'techs' => $techs,
             'eligibility' => $eligibility
         ];
-
         $templateName = 'admin/showStudentScores';
-
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 

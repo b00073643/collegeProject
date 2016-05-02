@@ -71,21 +71,6 @@ class LoginController
     }
 
     /**
-     * method to print name in login success page
-     * @param Request $request
-     * @param Application $app
-     * @param $username
-     * @return mixed
-     */
-    public function printName(Request $request, Application $app, $username)
-    {
-        echo "$username";
-        $argArray = ['user' => $username];
-        $templateName = 'loginSuccess';
-        return $app['twig']->render($templateName . '.html.twig', $argArray);
-    }
-
-    /**
      * form to add a new user
      * @param Request $request
      * @param Application $app
@@ -307,6 +292,4 @@ class LoginController
         // return whether or not hash of input password matches stored hash
         return $isAdmin;
     }
-
-
 }

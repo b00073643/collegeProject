@@ -53,12 +53,25 @@ class MainController
      */
     public function listAction(Request $request, Application $app)
     {
-        $users = User::getAll();
-        $argsArray = [
-            'users'=> $users
-        ];
-        $templateName = 'listUsers';
-
+        if (isset($_SESSION['role'])) {
+            if ($_SESSION['role']=='admin') {
+                $templateName = 'listUsers';
+                $users = User::getAll();
+                $argsArray = [
+                    'users'=> $users
+                ];
+            } else {
+                $templateName = 'error';
+                $argsArray = [
+                    'message' => 'Sorry you have tried to select an admin feature'
+                ];
+            }
+        } else {
+            $templateName = 'error';
+            $argsArray = [
+                'message' => 'Sorry you have tried to select an admin feature'
+            ];
+        }
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
@@ -70,8 +83,23 @@ class MainController
      */
     public function addPage(Request $request, Application $app)
     {
-        $templateName = 'admin/addRemove';
-        return $app['twig']->render($templateName . '.html.twig', []);
+        if (isset($_SESSION['role'])) {
+            if ($_SESSION['role']=='admin') {
+                $templateName = 'admin/addRemove';
+                $argsArray = [];
+            } else {
+                $templateName = 'error';
+                $argsArray = [
+                    'message' => 'Sorry you have tried to select an admin feature'
+                ];
+            }
+        } else {
+            $templateName = 'error';
+            $argsArray=[
+                'message'=>'Sorry you have tried to select an admin feature'
+            ];
+        }
+        return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
     /**
@@ -82,20 +110,23 @@ class MainController
      */
     public function listPage(Request $request, Application $app)
     {
-        $templateName = 'admin/listPage';
-        return $app['twig']->render($templateName . '.html.twig', []);
-    }
-
-    /**
-     * function for attendace page
-     * @param Request $request
-     * @param Application $app
-     * @return mixed
-     */
-    public function attendancePage(Request $request, Application $app)
-    {
-        $templateName = 'admin/attendance';
-        return $app['twig']->render($templateName . '.html.twig', []);
+        if (isset($_SESSION['role'])) {
+            if ($_SESSION['role']=='admin') {
+                $templateName = 'admin/listPage';
+                $argsArray = [];
+            } else {
+                $templateName = 'error';
+                $argsArray = [
+                    'message' => 'Sorry you have tried to select an admin feature'
+                ];
+            }
+        } else {
+            $templateName = 'error';
+            $argsArray = [
+                'message' => 'Sorry you have tried to select an admin feature'
+            ];
+        }
+        return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
     /**
@@ -105,8 +136,7 @@ class MainController
      * @return mixed
      */
     public function showStudents(Request $request, Application $app)
-    {            print'in method';
-
+    {
         if (isset($_SESSION['role'])) {
             print'is set anway as '.$_SESSION['role'];
             if ($_SESSION['role']=='admin') {
@@ -114,32 +144,28 @@ class MainController
                 foreach ($students as $student) {
                     $student->setId($student->getId());
                     $student->setSurname($student->getSurname());
-//                    $student->setUserName($student->getUserName());
                     $student->setFirstName($student->getFirstName());
-//                $student->setPassword($student->getId());
-                $student->setJoinDate($student->getJoinDate());
+                    $student->setJoinDate($student->getJoinDate());
                     $student->setLastGrading($student->getLastGrading());
                     $student->setCurrentGrade($student->getCurrentGrade());
                     $student->setAvgGrade($student->getAvgGrade());
                     $student->setAttendsClass($student->getAttendsClass());
-
                     $student->setTotalAttendedPercentage($this->setTotalAttendedPercentage($student->getId()));
-
                     Student::update($student);
                 }
                 $argsArray = [
                 'students' => $students
-            ];
+                ];
                 $templateName = 'admin/studentListWithDelete';
-            } else {
-                $message ='Sorry we are afraid you have tried to select an admin feature';
-                $argsArray = [
+            }
+        } else {
+            $message ='Sorry we are afraid you have tried to select an admin feature';
+            $argsArray = [
                 'message' => $message
             ];
-                $templateName = 'error';
-            }
-            return $app['twig']->render($templateName . '.html.twig', $argsArray);
+            $templateName = 'error';
         }
+        return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
     /**
@@ -149,7 +175,7 @@ class MainController
      */
     public function setTotalAttendedPercentage($id)
     {
-        $studentAttendance = Attendance::searchByColumn('studentId',$id);
+        $studentAttendance = Attendance::searchByColumn('studentId', $id);
         $totalPresent=0;
         $totalAbscent=0;
         foreach ($studentAttendance as $sa) {
@@ -159,8 +185,7 @@ class MainController
         $totalClasses=$totalPresent+$totalAbscent;
         if ($totalClasses < 1) {
             $this->totalAttendedPercentage=0;
-        }
-        else {
+        } else {
             $percent = (100 * $totalPresent) / $totalClasses;
             return intval($percent);
         }

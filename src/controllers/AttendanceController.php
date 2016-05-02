@@ -6,6 +6,7 @@
  * Time: 21:58
  */
 namespace Itb\Controller;
+
 use Itb\Model\Attendance;
 use Itb\Model\Student;
 use Itb\Model\User;
@@ -19,6 +20,33 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class AttendanceController
 {
+    /**
+     * function for attendace page
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
+    public function attendancePage(Request $request, Application $app)
+    {
+        if (isset($_SESSION['role'])) {
+            if ($_SESSION['role']=='admin') {
+                $templateName = 'admin/attendance';
+                $argsArray = [];
+            } else {
+                $templateName = 'error';
+                $argsArray = [
+                    'message' => 'Sorry you have tried to select an admin feature'
+                ];
+            }
+        } else {
+            $templateName = 'error';
+            $argsArray = [
+                'message' => 'Sorry you have tried to select an admin feature'
+            ];
+        }
+        return $app['twig']->render($templateName . '.html.twig', $argsArray);
+    }
+
     /**
      * function to process attendance
      * @param Request $request
@@ -36,18 +64,17 @@ class AttendanceController
         $attendance->setSessionId($sessionId);
         $attendance->setStudentId($studentId);
         $attendance->setDate($dateString);
-        if($atten>0) {
+        if ($atten>0) {
             $attendance->setPresent(1);
             $attendance->setAbscent(0);
-        }
-        else{
+        } else {
             $attendance->setPresent(0);
             $attendance->setAbscent(1);
         }
         Attendance::insert($attendance);
 //         die();
         $class = Session::getOneById($class1);
-        $students = Student::searchByColumn('attendsClass',$class1);
+        $students = Student::searchByColumn('attendsClass', $class1);
         $attendances = Attendance::getAll();
         $templateName = 'admin/markAttendance';
         $argsArray=[
@@ -60,21 +87,5 @@ class AttendanceController
 //        echo $date->format('U = Y-m-d H:i:s') . "\n";
 //        $timestamp = $date->getTimestamp();
 //
-    }
-
-    /**
-     * function to get the percentage of attendance
-     * @param Request $request
-     * @param Application $app
-     * @return mixed
-     */
-    public function getPercentageAttendance(Request $request,Application $app)
-    {
-        $student = Student::getOneById(10);
-//        var_dump($student);
-        $student->setTotalAttendedPercentage();
-        //$updateSuccess = Student::update($student);
-        die();
-        return $app['twig']->render($templateName . '.html.twig', []);
     }
 }

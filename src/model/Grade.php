@@ -113,5 +113,4 @@ class Grade extends DatabaseTable
     {
         $this->techniqueId = $techniqueId;
     }
-
 }

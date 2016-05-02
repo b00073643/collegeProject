@@ -4,6 +4,7 @@
 namespace ItbTests;
 
 use Itb\Model\Grade;
+
 class GradeTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetId()
@@ -117,5 +118,4 @@ class GradeTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals($expectedResult, $result);
     }
-
 }

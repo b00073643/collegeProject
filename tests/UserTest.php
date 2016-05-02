@@ -94,7 +94,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $password = "password";
         $expectedResult = $password;
 
-        $u->setPassword( $expectedResult);
+        $u->setPassword($expectedResult);
 
         // Act
         $result = $u->getPassword();
@@ -110,7 +110,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $password = "password";
         $expectedResult = $password;
 
-        $u->setPassword( $expectedResult);
+        $u->setPassword($expectedResult);
 
         // Act
         $result = $u->getPassword();
@@ -118,6 +118,4 @@ class UserTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertTrue($bool);
     }
-
-
 }

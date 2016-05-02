@@ -4,6 +4,7 @@
 namespace ItbTests;
 
 use Itb\Model\Belt;
+
 class BeltTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetId()
@@ -61,5 +62,4 @@ class BeltTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals($expectedResult, $result);
     }
-
 }

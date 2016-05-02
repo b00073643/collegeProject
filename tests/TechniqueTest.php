@@ -4,6 +4,7 @@
 namespace ItbTests;
 
 use Itb\Model\Technique;
+
 class TechniqueTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetId()
@@ -88,5 +89,4 @@ class TechniqueTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals($expectedResult, $result);
     }
-
 }

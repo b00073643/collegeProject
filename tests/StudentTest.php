@@ -321,9 +321,10 @@ class StudentTest extends \PHPUnit_Framework_TestCase
     {
         // Arrange
         $s = new Student();
-        $expectedResult = "password";;
+        $expectedResult = "password";
+        ;
 
-        $s->setPassword( $expectedResult);
+        $s->setPassword($expectedResult);
 
         // Act
         $result = $s->getPassword();
@@ -336,9 +337,10 @@ class StudentTest extends \PHPUnit_Framework_TestCase
     {
         // Arrange
         $s = new Student();
-        $expectedResult = "password";;
+        $expectedResult = "password";
+        ;
 
-        $s->setPassword( $expectedResult);
+        $s->setPassword($expectedResult);
 
         // Act
         $result = $s->getPassword();
