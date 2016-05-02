@@ -3,13 +3,15 @@
  * class for grades
  */
 
+/**
+ * name space to be used
+ */
 namespace Itb\model;
 
 /**
- *
+ *use the CRUD
  */
 use Mattsmithdev\PdoCrud\DatabaseTable;
-use Itb\Model\Student;
 
 /**
  * Class Grade
@@ -41,29 +43,7 @@ class Grade extends DatabaseTable
     private $score;
 
     /**
-     * can find matching username and password method
-     * @param $username
-     * @param $password
-     * @return bool
-     */
-//    public static function canFindMatchingUsernameAndPassword($username, $password)
-//    {
-//        $user = Student::getOneByUsername($username);
-//
-//        // if no record has this username, return FALSE
-//        if (null == $user) {
-//            return false;
-//        }
-//
-//        // hashed correct password
-//        $hashedStoredPassword = $user->getPassword();
-//
-//        // return whether or not hash of input password matches stored hash
-//        return password_verify($password, $hashedStoredPassword);
-//    }
-
-    /**
-     * methos to get
+     * method to get the id
      * @return mixed
      */
     public function getId()
@@ -72,6 +52,7 @@ class Grade extends DatabaseTable
     }
 
     /**
+     * method to set the id
      * @param mixed $id
      */
     public function setId($id)
@@ -80,6 +61,7 @@ class Grade extends DatabaseTable
     }
 
     /**
+     * method to get the student id
      * @return mixed
      */
     public function getStudentId()
@@ -88,6 +70,7 @@ class Grade extends DatabaseTable
     }
 
     /**
+     * method to set the student id
      * @param mixed $studentId
      */
     public function setStudentId($studentId)
@@ -96,6 +79,7 @@ class Grade extends DatabaseTable
     }
 
     /**
+     * method to return score
      * @return mixed
      */
     public function getScore()
@@ -104,6 +88,7 @@ class Grade extends DatabaseTable
     }
 
     /**
+     * method to set the score
      * @param mixed $score
      */
     public function setScore($score)
@@ -112,6 +97,7 @@ class Grade extends DatabaseTable
     }
 
     /**
+     * method to get technique
      * @return mixed
      */
     public function getTechniqueId()
@@ -120,6 +106,7 @@ class Grade extends DatabaseTable
     }
 
     /**
+     * method to set the technique
      * @param mixed $technique
      */
     public function setTechniqueId($techniqueId)
@@ -127,22 +114,4 @@ class Grade extends DatabaseTable
         $this->techniqueId = $techniqueId;
     }
 
-    /**
-     * get a grade id from a student id and a technique id
-     * @param $studentId
-     * @param $techniqueId
-     * @return bool
-     */
-//    public static function getGradeIdFromStudentIdandTechniqueId($studentId, $techniqueId)
-//    {
-//        $grades = Grade::searchByColumn('studentId', $studentId);
-//        foreach ($grades as $grade) {
-//            if ($grade->getTechniqueId() == $techniqueId) {
-//                $gradeId= $grade->getId();
-//                return $gradeId;
-//            }
-//        }
-//
-//        return false;
-//    }
 }

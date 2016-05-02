@@ -11,12 +11,29 @@ namespace Itb\model;
 use Mattsmithdev\PdoCrud\DatabaseTable;
 use Mattsmithdev\PdoCrud\DatabaseManager;
 
+/**
+ * Class Session
+ * @package Itb\model
+ */
 class Session extends DatabaseTable
 {
-    private $id;
-    private $name;
-    private $instructor;
     /**
+     * @var id for the id
+     */
+    private $id;
+
+    /**
+     * @var for name
+     */
+    private $name;
+
+    /**
+     * @var for instructor
+     */
+    private $instructor;
+
+    /**
+     * method to return id
      * @return mixed
      */
     public function getId()
@@ -25,6 +42,7 @@ class Session extends DatabaseTable
     }
 
     /**
+     * method to set the id
      * @param mixed $id
      */
     public function setId($id)
@@ -33,6 +51,7 @@ class Session extends DatabaseTable
     }
 
     /**
+     * method to get name
      * @return mixed
      */
     public function getName()
@@ -41,6 +60,7 @@ class Session extends DatabaseTable
     }
 
     /**
+     * method to set name
      * @param mixed $name
      */
     public function setName($name)
@@ -49,6 +69,7 @@ class Session extends DatabaseTable
     }
 
     /**
+     * method to get get instruction
      * @return mixed
      */
     public function getInstructor()
@@ -57,6 +78,7 @@ class Session extends DatabaseTable
     }
 
     /**
+     * method to get instructors name
      * @param mixed $instructor
      */
     public function setInstructor($instructor)

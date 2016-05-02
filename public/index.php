@@ -1,22 +1,8 @@
 <?php
-// load classes
+// autoloader& other setup
 // ---------------------------------------
-session_start();
+require_once __DIR__ . '/../app/setup.php';
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'itb');
-
-$templatesPath = __DIR__.'/../templates';
-$app = new \Silex\Application();
-$app['debug'] = true;
-
-$app->register(new Silex\Provider\TwigServiceProvider(), [
-    'twig.path'=>$templatesPath
-]);
 $app->get('/', 'Itb\Controller\MainController::indexAction');
 $app->get('/show/', 'Itb\Controller\MainController::showMissingAction');
 $app->get('/showStudent', 'Itb\Controller\MainController::showStudents');

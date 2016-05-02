@@ -1,22 +1,64 @@
 <?php
+/**
+ * student class
+ */
 namespace Itb\Model;
 use Mattsmithdev\PdoCrud\DatabaseTable;
 use Mattsmithdev\PdoCrud\DatabaseManager;
+
+/**
+ * Class Student
+ * @package Itb\Model
+ */
 class Student extends DatabaseTable
 {
+    /**
+     * @var for id
+     */
     private $id;
+    /**
+     * @var for surname
+     */
     private $surname;
+    /**
+     * @var for first name
+     */
     private $firstName;
+    /**
+     * @var for password
+     */
     private $password;
+    /**
+     * @var for join date
+     */
     private $joinDate;
+    /**
+     * @var for last grading
+     */
     private $lastGrading;
+    /**
+     * @var for current grade
+     */
     private $currentGrade;
+    /**
+     * @var for average grade
+     */
     private $avgGrade;
+    /**
+     * @var for username
+     */
     private $username;
+    /**
+     * @var for attending class
+     */
     private $attendsClass;
+    /**
+     * @var for attendace percentage
+     */
     private $totalAttendedPercentage;
 
     /**
+     * function to get username
      * @return mixed
      */
     public function getUsername()
@@ -25,6 +67,7 @@ class Student extends DatabaseTable
     }
 
     /**
+     * function to set username
      * @param mixed $username
      */
     public function setUsername($username)
@@ -32,13 +75,19 @@ class Student extends DatabaseTable
         $this->username = $username;
     }
 
-//    private $totalAttended;
-//    private $totalMissed;
+    /**
+     * function to get total attended percentage
+     * @return for
+     */
     public function getTotalAttendedPercentage()
     {
         return $this->totalAttendedPercentage;
     }
 
+    /**
+     * function to set the total attended percentage
+     * @param $t
+     */
     public function setTotalAttendedPercentage($t)
     {
         $this->totalAttendedPercentage = $t;
@@ -62,6 +111,7 @@ class Student extends DatabaseTable
 //        }
 //    }
     /**
+     * function to get total classes
      * @return mixed
      */
     public function getTotalClasses()
@@ -69,6 +119,7 @@ class Student extends DatabaseTable
         return $this->totalClasses;
     }
     /**
+     * set total classes
      * @param mixed $totalClasses
      */
     public function setTotalClasses($totalClasses)
@@ -76,6 +127,7 @@ class Student extends DatabaseTable
         $this->totalClasses = $totalClasses;
     }
     /**
+     * function to find ou which class a student attends
      * @return mixed
      */
     public function getAttendsClass()
@@ -83,6 +135,7 @@ class Student extends DatabaseTable
         return $this->attendsClass;
     }
     /**
+     * function to set which class a student takes part of
      * @param mixed $attendsClass
      */
     public function setAttendsClass($attendsClass)
@@ -90,6 +143,7 @@ class Student extends DatabaseTable
         $this->attendsClass = $attendsClass;
     }
     /**
+     * function to get the password
      * @return mixed
      */
     public function getPassword()
@@ -98,6 +152,7 @@ class Student extends DatabaseTable
     }
 
     /**
+     * function to return the id
      * @return int
      */
     public function getId()
@@ -105,6 +160,7 @@ class Student extends DatabaseTable
         return $this->id;
     }
     /**
+     * function to set the id
      * @param int $id
      */
     public function setId($id)
@@ -112,6 +168,7 @@ class Student extends DatabaseTable
         $this->id = $id;
     }
     /**
+     * function to get the surname
      * @return string
      */
     public function getSurname()
@@ -119,6 +176,7 @@ class Student extends DatabaseTable
         return $this->surname;
     }
     /**
+     * function to get the surname
      * @param string $surname
      */
     public function setSurname($surname)
@@ -126,6 +184,7 @@ class Student extends DatabaseTable
         $this->surname = $surname;
     }
     /**
+     * function to get first name
      * @return string
      */
     public function getFirstName()
@@ -133,6 +192,7 @@ class Student extends DatabaseTable
         return $this->firstName;
     }
     /**
+     * function to set the first name
      * @param string $firstName
      */
     public function setFirstName($firstName)
@@ -140,6 +200,7 @@ class Student extends DatabaseTable
         $this->firstName = $firstName;
     }
     /**
+     * function to get the joining date
      * @return float
      */
     public function getJoinDate()
@@ -147,6 +208,7 @@ class Student extends DatabaseTable
         return $this->joinDate;
     }
     /**
+     * function to set the joining date
      * @param float $joinDate
      */
     public function setJoinDate($joinDate)
@@ -154,6 +216,7 @@ class Student extends DatabaseTable
         $this->joinDate = $joinDate;
     }
     /**
+     * function to get the last grading
      * @return int
      */
     public function getLastGrading()
@@ -161,6 +224,7 @@ class Student extends DatabaseTable
         return $this->lastGrading;
     }
     /**
+     * function to set the last grading
      * @param int $lastGrading
      */
     public function setLastGrading($lastGrading)
@@ -168,6 +232,7 @@ class Student extends DatabaseTable
         $this->lastGrading = $lastGrading;
     }
     /**
+     * function to set the current grade
      * @return int
      */
     public function getCurrentGrade()
@@ -175,6 +240,7 @@ class Student extends DatabaseTable
         return $this->currentGrade;
     }
     /**
+     * function to set the current grade
      * @param int $currentGrade
      */
     public function setCurrentGrade($currentGrade)
@@ -182,6 +248,7 @@ class Student extends DatabaseTable
         $this->currentGrade = $currentGrade;
     }
     /**
+     * function to get the average grade
      * @return mixed
      */
     public function getAvgGrade()
@@ -189,6 +256,7 @@ class Student extends DatabaseTable
         return $this->avgGrade;
     }
     /**
+     * function to get the average grade
      * @param mixed $avgGrade
      */
     public function setAvgGrade($avgGrade)
@@ -196,6 +264,10 @@ class Student extends DatabaseTable
         $this->avgGrade = $avgGrade;
     }
 
+    /**
+     * function to set the password
+     * @param $password
+     */
     public function setPassword($password)
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);

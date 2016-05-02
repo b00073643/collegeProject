@@ -12,8 +12,19 @@ use Itb\Model\User;
 use Itb\Model\Session;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+
+/**
+ * Class AttendanceController
+ * @package Itb\Controller
+ */
 class AttendanceController
 {
+    /**
+     * function to process attendance
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function processAttendance(Request $request, Application $app)
     {
         $studentId = $request->get('id');
@@ -50,6 +61,13 @@ class AttendanceController
 //        $timestamp = $date->getTimestamp();
 //
     }
+
+    /**
+     * function to get the percentage of attendance
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function getPercentageAttendance(Request $request,Application $app)
     {
         $student = Student::getOneById(10);

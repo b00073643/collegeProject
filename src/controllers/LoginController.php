@@ -13,9 +13,18 @@ use Itb\Model\Student;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class LoginController
+ * @package Itb\Controller
+ */
 class LoginController
 {
-
+    /**
+     * function to log out
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function logoutAction(Request $request, Application $app)
     {
         // remove 'user' element from SESSION array
@@ -33,7 +42,12 @@ class LoginController
         // redirect to index action
     }
 
-
+    /**
+     * function for a student to login
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function loginStudentAction(Request $request, Application $app)
     {
         $templateName = 'login';
@@ -41,6 +55,13 @@ class LoginController
         $argsArray=['action'=>$action];
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
+
+    /**
+     * function for an admin to login
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function loginAdminAction(Request $request, Application $app)
     {
         $action = 'processAdminLogin';
@@ -48,6 +69,14 @@ class LoginController
         $argsArray=['action'=>$action];
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
+
+    /**
+     * method to print name in login success page
+     * @param Request $request
+     * @param Application $app
+     * @param $username
+     * @return mixed
+     */
     public function printName(Request $request, Application $app, $username)
     {
         echo "$username";
@@ -56,13 +85,24 @@ class LoginController
         return $app['twig']->render($templateName . '.html.twig', $argArray);
     }
 
+    /**
+     * form to add a new user
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function addUserForm(Request $request, Application $app)
     {
         $templateName = 'admin/addUser';
         return $app['twig']->render($templateName . '.html.twig', []);
     }
 
-
+    /**
+     * function to add a new user
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function addUser(Request $request, Application $app)
     {
         $username = $request->get('username');
@@ -111,7 +151,12 @@ class LoginController
 //
 //    }
 
-
+    /**
+     * method to process student login
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function processStudentLogin(Request $request, Application $app)
     {
         $username = $request->get('username');
@@ -143,6 +188,12 @@ class LoginController
         }
     }
 
+    /**
+     * method to find if there is a matching username or password
+     * @param $username
+     * @param $password
+     * @return bool
+     */
     public static function canFindMatchingUsernameAndPassword($username, $password)
     {
         $user = Student::getOneByUsername($username);
@@ -158,6 +209,13 @@ class LoginController
         // return whether or not hash of input password matches stored hash
         return password_verify($password, $hashedStoredPassword);
     }
+
+    /**
+     * method to process the admin login
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function processAdminLoginAction(Request $request, Application $app)
     {
         $username = $request->get('username');
@@ -195,6 +253,10 @@ class LoginController
         }
     }
 
+    /**
+     * method to see if user is logged in
+     * @return bool
+     */
     public function isLoggedInFromSession()
     {
         $isAdminLoggedIn = false;
@@ -207,6 +269,10 @@ class LoginController
         return $isAdminLoggedIn;
     }
 
+    /**
+     * method to return username from session
+     * @return string
+     */
     public function usernameFromSession()
     {
         $username = '';
@@ -219,6 +285,12 @@ class LoginController
         return $username;
     }
 
+    /**
+     * method to find if there is a matching username or password
+     * @param $username
+     * @param $password
+     * @return bool
+     */
     public static function canFindMatchingAdminUsernameAndPassword($username, $password)
     {
         $user = User::getOneByUsername($username);

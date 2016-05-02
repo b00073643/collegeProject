@@ -14,8 +14,18 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Itb\Model\Technique;
 
+/**
+ * Class TechniqueController
+ * @package Itb\Controller
+ */
 class TechniqueController
 {
+    /**
+     * function to display grades associated with a belt
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function syllabus(Request $request, Application $app)
     {
         $beltId = $request->get('beltId');
@@ -32,6 +42,12 @@ class TechniqueController
         // redirect to index action
     }
 
+    /**
+     * function to list the belts
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function listBelts(Request $request, Application $app)
     {
         $username = $_SESSION['user'];

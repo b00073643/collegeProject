@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * main controller
+ */
 namespace Itb\Controller;
 
 use Itb\Model\Student;
@@ -8,9 +10,18 @@ use Itb\Model\User;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class MainController
+ * @package Itb\Controller
+ */
 class MainController
 {
-
+    /**
+     * function to get index page
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function indexAction(Request $request, Application $app)
     {
 
@@ -34,7 +45,12 @@ class MainController
     }
 
 
-
+    /**
+     * function to list all users
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function listAction(Request $request, Application $app)
     {
         $users = User::getAll();
@@ -46,23 +62,48 @@ class MainController
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
+    /**
+     * function to get the page where users can be deleted
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function addPage(Request $request, Application $app)
     {
         $templateName = 'admin/addRemove';
         return $app['twig']->render($templateName . '.html.twig', []);
     }
 
+    /**
+     * function to get page to list students
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function listPage(Request $request, Application $app)
     {
         $templateName = 'admin/listPage';
         return $app['twig']->render($templateName . '.html.twig', []);
     }
+
+    /**
+     * function for attendace page
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function attendancePage(Request $request, Application $app)
     {
         $templateName = 'admin/attendance';
         return $app['twig']->render($templateName . '.html.twig', []);
     }
 
+    /**
+     * function to show students
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function showStudents(Request $request, Application $app)
     {            print'in method';
 
@@ -100,6 +141,12 @@ class MainController
             return $app['twig']->render($templateName . '.html.twig', $argsArray);
         }
     }
+
+    /**
+     * function to set total attended percentage
+     * @param $id
+     * @return int
+     */
     public function setTotalAttendedPercentage($id)
     {
         $studentAttendance = Attendance::searchByColumn('studentId',$id);
@@ -118,6 +165,13 @@ class MainController
             return intval($percent);
         }
     }
+
+    /**
+     * function to show a single student
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function showSingleStudent(Request $request, Application $app)
     {
         //        $this->timeSince();
@@ -152,6 +206,11 @@ class MainController
         }
     }
 
+    /**
+     * funtion to work out time since given date
+     * @param $lastGrading
+     * @return float
+     */
     public function monthsSince($lastGrading)
     {
         $time = strtotime($lastGrading);
@@ -164,6 +223,13 @@ class MainController
         $months = $numberOfUnits;// . 'Months since last grading';
             return $months;
     }
+
+    /**
+     * if a link is missing what to show
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function showMissingAction(Request $request, Application $app)
     {
         $message= 'Sorry no ID was entered';
@@ -176,6 +242,12 @@ class MainController
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
+    /**
+     * a page to show ifthere is an error
+     * @param Application $app
+     * @param $code
+     * @return mixed
+     */
     public function errorAction(Application $app, $code)
     {
         $message = '404 Error sorry cant find resource';

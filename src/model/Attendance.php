@@ -10,16 +10,39 @@ namespace Itb\model;
 
 use Mattsmithdev\PdoCrud\DatabaseTable;
 
+/**
+ * Class Attendance
+ * @package Itb\model
+ */
 class Attendance extends DatabaseTable
 {
+    /**
+     * @var for id
+     */
     private $id;
+    /**
+     * @var for session id
+     */
     private $sessionId;
+    /**
+     * @var for student id
+     */
     private $studentId;
+    /**
+     * @var for date
+     */
     private $date;
+    /**
+     * @var for present
+     */
     private $present;
+    /**
+     * @var for abscent
+     */
     private $abscent;
 
     /**
+     * function to get session id
      * @return mixed
      */
     public function getSessionId()
@@ -28,6 +51,7 @@ class Attendance extends DatabaseTable
     }
 
     /**
+     * function to set the session id
      * @param mixed $sessionId
      */
     public function setSessionId($sessionId)
@@ -35,13 +59,8 @@ class Attendance extends DatabaseTable
         $this->sessionId = $sessionId;
     }
 
-
     /**
-     * @return mixed
-     */
-
-
-    /**
+     * function to get student id
      * @return mixed
      */
     public function getStudentId()
@@ -50,6 +69,7 @@ class Attendance extends DatabaseTable
     }
 
     /**
+     * function to set the student id
      * @param mixed $studentId
      */
     public function setStudentId($studentId)
@@ -58,6 +78,7 @@ class Attendance extends DatabaseTable
     }
 
     /**
+     * function to get the date
      * @return mixed
      */
     public function getDate()
@@ -66,6 +87,7 @@ class Attendance extends DatabaseTable
     }
 
     /**
+     * function to set the date
      * @param mixed $date
      */
     public function setDate($date)
@@ -74,6 +96,7 @@ class Attendance extends DatabaseTable
     }
 
     /**
+     * function to get the present
      * @return mixed
      */
     public function getPresent()
@@ -82,6 +105,7 @@ class Attendance extends DatabaseTable
     }
 
     /**
+     * function to set the present
      * @param mixed $present
      */
     public function setPresent($present)
@@ -90,6 +114,7 @@ class Attendance extends DatabaseTable
     }
 
     /**
+     * function to get the abscent
      * @return mixed
      */
     public function getAbscent()
@@ -98,6 +123,7 @@ class Attendance extends DatabaseTable
     }
 
     /**
+     * function to set the abscent
      * @param mixed $abscent
      */
     public function setAbscent($abscent)
@@ -107,6 +133,7 @@ class Attendance extends DatabaseTable
 
 
     /**
+     * function to get the id
      * @return mixed
      */
     public function getId()
@@ -115,6 +142,7 @@ class Attendance extends DatabaseTable
     }
 
     /**
+     * function to set the id
      * @param mixed $id
      */
     public function setId($id)

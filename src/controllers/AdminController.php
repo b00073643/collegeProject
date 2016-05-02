@@ -15,9 +15,18 @@ use Itb\Model\Session;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class AdminController
+ * @package Itb\Controller
+ */
 class AdminController
 {
-
+    /**
+     * function for admin home page
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function adminHomeAction(Request $request, Application $app)
     {
         $isLoggedIn = $this->loginController->isAdminLoggedInFromSession();
@@ -36,6 +45,12 @@ class AdminController
         }
     }
 
+    /**
+     * function for attendance page
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function attendance(Request $request, Application $app)
     {
         $username = $_SESSION['user'];
@@ -44,6 +59,12 @@ class AdminController
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
+    /**
+     * function for marking attendance page
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function markAttendance(Request $request, Application $app)
     {
         $class = $request->get('classes');
@@ -71,44 +92,24 @@ class AdminController
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
+    /**
+     * function to add a student
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function addStudentForm(Request $request, Application $app)
     {
         $templateName = '/admin/addStudent';
         return $app['twig']->render($templateName . '.html.twig', []);
     }
-    public function addTechniqueSeen(Request $request, Application $app, $id)
-    {
-        if (isset($_SESSION['role'])) {
-            if ($_SESSION['role']=='admin') {
-                $isLoggedIn=true;
-            }
-        }
-        if ($isLoggedIn) {
-            $student = Student::getOneById($id);
 
-            $oldSeen = $student->getSeen();
-            $newS = $student->addOneToSeen($oldSeen);
-            $student->setSeen($newS);
-            $newSeen = $student->getSeen();
-
-            $updateSuccess = Student::update($student);
-//
-            $argsArray = [
-                'student' => $student,
-                'oldseen' => $oldSeen,
-                'newseen' => $newSeen
-            ];
-            $templateName = 'student/showSingleStudent';
-        } else {
-            $templateName = 'error';
-            $message = 'Sorry you do not have permission to do this';
-            $argsArray = [
-                'message' => $message
-
-            ];
-        }
-        return $app['twig']->render($templateName . '.html.twig', $argsArray);
-    }
+    /**
+     * function to delete a student
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function deleteStudent(Request $request, Application $app)
     {
         $id = $request->get('id');

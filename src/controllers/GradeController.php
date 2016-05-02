@@ -17,9 +17,18 @@ use Itb\Model\Session;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class GradeController
+ * @package Itb\Controller
+ */
 class GradeController
 {
-
+    /**
+     * function to show a students grade
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function showStudentGrade(Request $request, Application $app)
     {
         $studentA = Student::getOneByUsername($_SESSION['user']);
@@ -68,6 +77,12 @@ class GradeController
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
+    /**
+     * function to update a students grade
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function updateGrade(Request $request, Application $app)
     {
         $_SESSION['role']='admin';
@@ -123,6 +138,12 @@ class GradeController
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
+    /**
+     * function to get the form for updateing a students grade
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function updateGradeForm(Request $request, Application $app)
     {
         if ($_SESSION['role'] = 'user') {
@@ -142,6 +163,12 @@ class GradeController
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
+    /**
+     * function to fill the grades
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function fillGrades(Request $request, Application $app)
     {
         $students = Student::getAll();
@@ -194,7 +221,11 @@ class GradeController
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
-
+    /**
+     * function to work our how many months has passed since a date
+     * @param $lastGrading
+     * @return float
+     */
     public function monthsSince($lastGrading)
     {
         $time = strtotime($lastGrading);
@@ -208,6 +239,12 @@ class GradeController
         return $months;
     }
 
+    /**
+     * function to get a grade id from a student id and a technique id
+     * @param $studentId
+     * @param $techniqueId
+     * @return bool
+     */
     public static function getGradeIdFromStudentIdandTechniqueId($studentId, $techniqueId)
     {
         $grades = Grade::searchByColumn('studentId', $studentId);

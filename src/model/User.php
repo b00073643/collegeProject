@@ -1,20 +1,45 @@
 <?php
+/**
+ * class for user
+ */
 namespace Itb\model;
 
 use Mattsmithdev\PdoCrud\DatabaseTable;
 use Mattsmithdev\PdoCrud\DatabaseManager;
 
+/**
+ * Class User
+ * @package Itb\model
+ */
 class User extends DatabaseTable
 {
+    /**
+     * variables for role
+     */
     const ROLE_USER = 'user';
+    /**
+     * variables for role
+     */
     const ROLE_ADMIN = 'admin';
-
+    /**
+     * @var for id
+     */
     private $id;
+    /**
+     * @var for username
+     */
     private $username;
+    /**
+     * @var for password
+     */
     private $password;
+    /**
+     * @var for role
+     */
     private $role;
 
     /**
+     * function to get id
      * @return mixed
      */
     public function getId()
@@ -23,6 +48,7 @@ class User extends DatabaseTable
     }
 
     /**
+     * function to set the id
      * @param mixed $id
      */
     public function setId($id)
@@ -31,6 +57,7 @@ class User extends DatabaseTable
     }
 
     /**
+     * function to get the username
      * @return mixed
      */
     public function getUsername()
@@ -39,6 +66,7 @@ class User extends DatabaseTable
     }
 
     /**
+     * function to set the username
      * @param mixed $username
      */
     public function setUsername($username)
@@ -47,6 +75,7 @@ class User extends DatabaseTable
     }
 
     /**
+     * function to get the password
      * @return mixed
      */
     public function getPassword()
@@ -55,6 +84,7 @@ class User extends DatabaseTable
     }
 
     /**
+     * function to get the role
      * @return mixed
      */
     public function getRole()
@@ -63,6 +93,7 @@ class User extends DatabaseTable
     }
 
     /**
+     * function to set the role
      * @param mixed $role
      */
     public function setRole($role)
@@ -133,6 +164,12 @@ class User extends DatabaseTable
      *
      * @param $username
      * @codeCoverageIgnore
+     * @return mixed|null
+     */
+
+    /**
+     * function to get a student by their username
+     * @param $username
      * @return mixed|null
      */
     public static function getOneByUsername($username)

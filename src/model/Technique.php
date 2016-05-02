@@ -10,13 +10,27 @@ namespace Itb\model;
 
 use Mattsmithdev\PdoCrud\DatabaseTable;
 
+/**
+ * Class Technique
+ * @package Itb\model
+ */
 class Technique extends DatabaseTable
 {
+    /**
+     * @var for id
+     */
     private $id;
+    /**
+     * @var for belt
+     */
     private $belt;
+    /**
+     * @var for name
+     */
     private $name;
 
     /**
+     * method to return name
      * @return mixed
      */
     public function getName()
@@ -25,6 +39,7 @@ class Technique extends DatabaseTable
     }
 
     /**
+     * method to set name
      * @param mixed $name
      */
     public function setName($name)
@@ -33,6 +48,7 @@ class Technique extends DatabaseTable
     }
 
     /**
+     * method to get id
      * @return mixed
      */
     public function getId()
@@ -41,6 +57,7 @@ class Technique extends DatabaseTable
     }
 
     /**
+     * method to set id
      * @param mixed $id
      */
     public function setId($id)
@@ -49,6 +66,7 @@ class Technique extends DatabaseTable
     }
 
     /**
+     * method to get belt
      * @return mixed
      */
     public function getBelt()
@@ -57,6 +75,7 @@ class Technique extends DatabaseTable
     }
 
     /**
+     * method to set belt
      * @param mixed $belt
      */
     public function setBelt($belt)

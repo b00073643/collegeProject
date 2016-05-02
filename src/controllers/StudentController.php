@@ -12,8 +12,18 @@ use Itb\Model\Student;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class StudentController
+ * @package Itb\Controller
+ */
 class StudentController
 {
+    /**
+     * function to add a student
+     * @param Request $request
+     * @param Application $app
+     * @return mixed
+     */
     public function addStudent(Request $request, Application $app)
     {
         $userName = $request->get('userName');
