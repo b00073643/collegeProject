@@ -166,12 +166,6 @@ class User extends DatabaseTable
      * @codeCoverageIgnore
      * @return mixed|null
      */
-
-    /**
-     * function to get a student by their username
-     * @param $username
-     * @return mixed|null
-     */
     public static function getOneByUsername($username)
     {
         $db = new DatabaseManager();

@@ -104,40 +104,8 @@ class LoginController
         return $app['twig']->render($templateName . '.html.twig', $argsArray);
     }
 
-//    public function addStudent(Request $request, Application $app)
-//    {
-//        $firstName = $request->get('firstName');
-//        $surname=$request->get('surname');
-//        $password=$request->get('password');
-//        $attendsClass=$request->get('classType');
-//
-//        $ts =new \DateTime();
-//        $t=$ts->getTimestamp();
-//        $date = new \DateTime();
-//        $student = new Student();
-////        $student->setId(25);
-//
-//        $student->setSurname($surname);
-//        $student->setFirstName($firstName);
-//        $student->setPassword($password);
-//        $student->setJoinDate($date->format('d-m-Y'));
-//        $student->setLastGrading('');
-//        $student->setCurrentGrade('9');
-//        $student->setAvgGrade('');
-//        $student->setAttendsClass($attendsClass);
-//        $student->setTotalAttendedPercentage(22);
-////        var_dump($student);
-//
-//        Student::insert($student);
-//
-//        $argsArray = ['student' => $student];
-//        $templateName = 'admin/showSingleStudent';
-//        return $app['twig']->render($templateName . '.html.twig', $argsArray);
-//
-//    }
-
     /**
-     * method to process student login
+     * function to process login
      * @param Request $request
      * @param Application $app
      * @return mixed
@@ -232,7 +200,8 @@ class LoginController
 
        //     require_once __DIR__ . '/../templates/loginSuccess.php';
         } else {
-            $argsArray = ['user' => $username];
+            $argsArray = ['user' => $username,
+            'message'=>' no detials matched please try again'];
             $templateName = 'loginFail';
             return $app['twig']->render($templateName . '.html.twig', $argsArray);
         }
